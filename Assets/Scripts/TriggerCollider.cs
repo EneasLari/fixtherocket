@@ -20,6 +20,9 @@ public class TriggerCollider : MonoBehaviour
                 if (gameObject.GetComponent<ObstacleMovement>()!=null) {
                     gameObject.GetComponent<ObstacleMovement>().enabled = false;
                 }
+                if (gameObject.GetComponent<ObstacleMovement>().particleSystemSmoke != null) {
+                    gameObject.GetComponent<ObstacleMovement>().particleSystemSmoke.SetActive(false);
+                }
                 GameObject parent= transform.Find("ExplosionPecies").gameObject;
                 parent.SetActive(true);
                 BeforeExplosion.GetComponent<MeshRenderer>().enabled = false;

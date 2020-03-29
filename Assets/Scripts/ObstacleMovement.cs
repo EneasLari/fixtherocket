@@ -7,6 +7,7 @@ public class ObstacleMovement : MonoBehaviour
     public Vector3 startingPosition;
     public Vector3 endingPosition;
     public float Distance=40;
+    public GameObject particleSystemSmoke;
     private float currentDistance=0;
     public float Speed;
     float Timer;
@@ -16,6 +17,10 @@ public class ObstacleMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int rand = Random.Range(0,100);
+        if (rand > 50 && particleSystemSmoke!=null) {
+            particleSystemSmoke.SetActive(false);
+        }
         startingPosition = transform.position;
         endingPosition = new Vector3(transform.position.x, transform.position.y-Distance, transform.position.z);
         pointB.y = Distance;
@@ -36,6 +41,10 @@ public class ObstacleMovement : MonoBehaviour
             pointA = Vector3.zero;
             pointB = Vector3.zero;
             pointB.y = Distance;
+            //if (particleSystem != null) {
+            //    Quaternion newrotation = new Quaternion(particleSystem.transform.rotation.x * -1, particleSystem.transform.rotation.y, particleSystem.transform.rotation.z, particleSystem.transform.rotation.w);
+            //    particleSystem.transform.rotation = newrotation;
+            //}
         }
     }
 }
