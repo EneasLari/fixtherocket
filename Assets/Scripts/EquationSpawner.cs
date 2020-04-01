@@ -24,7 +24,9 @@ public class EquationSpawner : MonoBehaviour {
     public GameObject LaunchTheRocketUI;
     public GameObject CalculationsUI;
     public int calculationsToFinish = 3;
-
+    public Text calculationsToFinishText;
+    public bool getfromFile=false;
+    private int CalcListIndex = 0;
     public enum CalculationType {
         Substraction, Addition, Multiply, Divide
     }
@@ -79,7 +81,7 @@ public class EquationSpawner : MonoBehaviour {
         //}
         resultButA.onClick.AddListener(TaskOnClick);
         resultButB.onClick.AddListener(TaskOnClick);
-
+        calculationsToFinishText.text = calculationsToFinish.ToString();
     }
 
     void OnApplicationQuit() {
@@ -105,6 +107,7 @@ public class EquationSpawner : MonoBehaviour {
                 //enemyplayer.GetComponent<PlayerMovement>().speed = enemyplayer.GetComponent<PlayerMovement>().speed + percet;
                 StartCoroutine(getCalculation(1));
                 calculationsToFinish--;
+                calculationsToFinishText.text = calculationsToFinish.ToString();
             } else {
                 Wrongs++;
                 resultTextA.text = "";
@@ -249,7 +252,27 @@ public class EquationSpawner : MonoBehaviour {
 
     public IEnumerator getCalculation(int secstowait) {
         yield return new WaitForSeconds(secstowait);
-        if (TypeOfCalculation == CalculationType.Addition) {
+        if (getfromFile) {
+            secsPassed = 0;
+            timerSec = 0;
+            Calculation acalc = HandleTextFile.CalculationsList[CalcListIndex];
+            CalcListIndex++;
+            varvalA = acalc.OperandA;
+            varvalB = acalc.OperandB;
+            CorrectAnswer = acalc.CorrectRes;
+            float rand = Random.Range(0, 1);
+            if (rand > 0.5f) {
+                resultValueA = acalc.WrongRes;
+                resultValueB = acalc.CorrectRes;
+            } else {
+                resultValueB = acalc.WrongRes;
+                resultValueA = acalc.CorrectRes;
+            }
+            resultTextA.text = resultValueA.ToString();
+            resultTextB.text = resultValueB.ToString();
+            CalculationText.text = varvalA.ToString() + acalc.CalcOperator + varvalB.ToString() + "=";
+        }
+        else if (TypeOfCalculation == CalculationType.Addition) {
             getNextAddition();
         } else if (TypeOfCalculation == CalculationType.Divide) {
             getNextDivision();
