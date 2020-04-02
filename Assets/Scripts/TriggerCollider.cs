@@ -1,5 +1,6 @@
 ﻿using PathCreation;
 using PathCreation.Examples;
+using PathCreation.PathFollower;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

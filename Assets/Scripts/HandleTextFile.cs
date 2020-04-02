@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
+using Entities.MathEquations;
 
 public class HandleTextFile : MonoBehaviour
 {

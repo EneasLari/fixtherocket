@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Entities.MathEquations;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,41 +8,36 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class EquationSpawner : MonoBehaviour {
     public GameObject player;
-    //public GameObject enemyplayer;
-    public int Corrects = 0;
-    public int Wrongs = 0;
-    public Text resultTextA;
-    private int resultValueA;
-    public Text resultTextB;
-    private int resultValueB;
-    public Text CalculationText;
-    private int varvalA;
-    private int varvalB;
-    public Button resultButA;
-    public Button resultButB;
-    private int CorrectAnswer;
-    public CalculationType TypeOfCalculation;
     public GameObject LaunchTheRocketUI;
     public GameObject CalculationsUI;
-    public int calculationsToFinish = 3;
-    public Text calculationsToFinishText;
-    public bool getfromFile=false;
+
+    public Text resultTextA;
+    public Text resultTextB;
+    public Text CalculationText;
+    public Text calculationsFinishedText;
+    public Text ScoreText;
+
+    public Button resultButA;
+    public Button resultButB;
+
+    public CalculationType TypeOfCalculation;
+    public int calculationsFinished = 3;
+    private int calculationsToFinish;
+    public int estimatedTimePerCalc = 4;
+    public bool getfromFile = false;
+    public int TotalTimeForResponses = 0;
+
+    private int CorrectAnswer;
     private int CalcListIndex = 0;
+    
+
+    private float timer = 0.0f;
+    private int timerInSeconds=0;
+    private bool counterStopped=true;
+    private GameSerializedData gameData = new GameSerializedData();
     public enum CalculationType {
         Substraction, Addition, Multiply, Divide
     }
-    private float timerSec = 0.0f;//this resets to zero everytime we get nextcalculation
-    private int secsPassed = 0;
-    public float SecsToResetSpeed = 5;
-    public int estimatedTime = 10;
-    
-    public float speedEnemyWins = 1f;
-    public float speedPlayerWins = 1f;
-    //https://answers.unity.com/questions/1270907/how-to-assign-a-value-to-buttons-every-button-woul.html
-    private int rand;
-    //private float pitchgained = 0;
-    // Start is called before the first frame update
-    private float initialspeed;
 
     void Start() {
         if (CalculationsUI != null) {
@@ -50,78 +46,41 @@ public class EquationSpawner : MonoBehaviour {
         if (LaunchTheRocketUI != null) {
             LaunchTheRocketUI.SetActive(false);
         }
-        //initialspeed = player.GetComponent<PlayerMovement>().speed;
         StartCoroutine(getCalculation(0));
-        //if (GlobalVars.CalculationType == "Addition") {
-        //    TypeOfCalculation = CalculationType.Addition;
-        //}
-        //if (GlobalVars.CalculationType == "Subtraction") {
-        //    TypeOfCalculation = CalculationType.Substraction;
-        //}
-        //if (GlobalVars.CalculationType == "Multiplication") {
-        //    TypeOfCalculation = CalculationType.Multiply;
-        //}
-        //if (GlobalVars.CalculationType == "Division") {
-        //    TypeOfCalculation = CalculationType.Divide;
-        //}
-        //rand = Random.Range(0, enemyplayer.transform.GetChild(0).childCount - 1);
-        //for (int i=0;i< player.transform.GetChild(0).childCount;i++) {
-        //    if (i == GlobalVars.playerskinSelected) {
-        //        player.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
-        //        player.transform.GetChild(0).GetChild(i).GetComponent<AudioSource>().volume = 0.4f;
-        //    } else {
-        //        player.transform.GetChild(0).GetChild(i).gameObject.SetActive(false);
-        //    }
-        //    if (i==rand) {
-        //       //// enemyplayer.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
-        //       // enemyplayer.transform.GetChild(0).GetChild(i).GetComponent<AudioSource>().volume = 0.4f;
-        //    } else {
-        //       // enemyplayer.transform.GetChild(0).GetChild(i).gameObject.SetActive(false);
-        //    }
-        //}
+        FlipCounterState();//start
         resultButA.onClick.AddListener(TaskOnClick);
         resultButB.onClick.AddListener(TaskOnClick);
-        calculationsToFinishText.text = calculationsToFinish.ToString();
+        calculationsFinishedText.text = calculationsFinished.ToString();
+        calculationsToFinish = calculationsFinished;
     }
 
     void OnApplicationQuit() {
-        Debug.Log("Application ending after " + Time.time + " seconds");
-        //GlobalVars.Serialize();
+
     }
 
     public void TaskOnClick() {
         string clicked = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
-        if (calculationsToFinish > 1) {
+        if (calculationsFinished > 1) {
             if (int.Parse(clicked) == CorrectAnswer) {
-                Corrects++;
-                //EventSystem.current.currentSelectedGameObject.GetComponent<AudioSource>().Play();
                 resultTextA.text = "";
                 resultTextB.text = "";
                 CalculationText.text = CalculationText.text + CorrectAnswer;
-                secsPassed = Mathf.RoundToInt(timerSec);
-                //print("You found the correct answer in " + secsPassed + " secs");
-                float percet = ((float)secsPassed / (float)estimatedTime);
-                //player.GetComponent<PlayerMovement>().speed = player.GetComponent<PlayerMovement>().speed + (speedPlayerWins - percet);
-                //player.transform.GetChild(0).GetChild(GlobalVars.playerskinSelected).GetComponent<AudioSource>().pitch += (float)0.3;
-                //pitchgained += (float)0.3;
-                //enemyplayer.GetComponent<PlayerMovement>().speed = enemyplayer.GetComponent<PlayerMovement>().speed + percet;
-                StartCoroutine(getCalculation(1));
-                calculationsToFinish--;
-                calculationsToFinishText.text = calculationsToFinish.ToString();
+                StartCoroutine(getCalculation(10));
+                calculationsFinished--;
+                calculationsFinishedText.text = calculationsFinished.ToString();
+                gameData.Score += CalcListIndex;
             } else {
-                Wrongs++;
                 resultTextA.text = "";
                 resultTextB.text = "";
-                // enemyplayer.GetComponent<PlayerMovement>().speed = enemyplayer.GetComponent<PlayerMovement>().speed + speedEnemyWins;
-                ///enemyplayer.transform.GetChild(0).GetChild(rand).GetComponent<AudioSource>().pitch += (float)0.3;
                 StartCoroutine(getCalculation(1));
             }
-            
-            if (calculationsToFinish == 0) {
-                //Show something to tell that the calculations finished
-            }
-            //print("You have more " + calculationsToFinish + " calcs to finish");
+            FlipCounterState();//stopped
+            Invoke("FlipCounterState", 1f);//start after 1 sec
+            //print("You have more " + calculationsFinished + " calcs to finish");
         } else {
+            FlipCounterState();//stop at the end
+            gameData.Score += calculationsToFinish-(TotalTimeForResponses/estimatedTimePerCalc);
+            TotalTimeForResponses = timerInSeconds;
             if (CalculationsUI != null) {
                 CalculationsUI.SetActive(false);
             }
@@ -132,9 +91,37 @@ public class EquationSpawner : MonoBehaviour {
 
     }
 
+    private void getCalculationFromFile()
+    {
+        int resultValueA;
+        int resultValueB;
+        int varvalA;
+        int varvalB;
+        Calculation acalc = HandleTextFile.CalculationsList[CalcListIndex];
+        CalcListIndex++;
+        varvalA = acalc.OperandA;
+        varvalB = acalc.OperandB;
+        CorrectAnswer = acalc.CorrectRes;
+        float rand = Random.Range(0, 1);
+        if (rand > 0.5f)
+        {
+            resultValueA = acalc.WrongRes;
+            resultValueB = acalc.CorrectRes;
+        } else
+        {
+            resultValueB = acalc.WrongRes;
+            resultValueA = acalc.CorrectRes;
+        }
+        resultTextA.text = resultValueA.ToString();
+        resultTextB.text = resultValueB.ToString();
+        CalculationText.text = varvalA.ToString() + acalc.CalcOperator + varvalB.ToString() + "=";
+    }
+
     public void getNextAddition() {
-        secsPassed = 0;
-        timerSec = 0;
+        int resultValueA;
+        int resultValueB;
+        int varvalA;
+        int varvalB;
         varvalA = Random.Range(1, 10);
         varvalB = Random.Range(1, 10);
         int correctresult = varvalA + varvalB;
@@ -160,8 +147,10 @@ public class EquationSpawner : MonoBehaviour {
 
 
     public void getNextSubtraction() {
-        secsPassed = 0;
-        timerSec = 0;
+        int resultValueA;
+        int resultValueB;
+        int varvalA;
+        int varvalB;
         varvalA = Random.Range(1, 10);
         varvalB = Random.Range(1, 10);
         int correctresult = varvalA - varvalB;
@@ -194,8 +183,10 @@ public class EquationSpawner : MonoBehaviour {
 
 
     public void getNextMultiply() {
-        secsPassed = 0;
-        timerSec = 0;
+        int resultValueA;
+        int resultValueB;
+        int varvalA;
+        int varvalB;
         varvalA = Random.Range(1, 10);
         varvalB = Random.Range(1, 10);
         int correctresult = varvalA * varvalB;
@@ -220,8 +211,10 @@ public class EquationSpawner : MonoBehaviour {
     }
 
     public void getNextDivision() {
-        secsPassed = 0;
-        timerSec = 0;
+        int resultValueA;
+        int resultValueB;
+        int varvalA;
+        int varvalB;
         varvalA = Random.Range(1, 100);
         varvalB = Random.Range(1, varvalA);
         while ((varvalA % varvalB) != 0) {
@@ -252,27 +245,10 @@ public class EquationSpawner : MonoBehaviour {
 
     public IEnumerator getCalculation(int secstowait) {
         yield return new WaitForSeconds(secstowait);
-        if (getfromFile) {
-            secsPassed = 0;
-            timerSec = 0;
-            Calculation acalc = HandleTextFile.CalculationsList[CalcListIndex];
-            CalcListIndex++;
-            varvalA = acalc.OperandA;
-            varvalB = acalc.OperandB;
-            CorrectAnswer = acalc.CorrectRes;
-            float rand = Random.Range(0, 1);
-            if (rand > 0.5f) {
-                resultValueA = acalc.WrongRes;
-                resultValueB = acalc.CorrectRes;
-            } else {
-                resultValueB = acalc.WrongRes;
-                resultValueA = acalc.CorrectRes;
-            }
-            resultTextA.text = resultValueA.ToString();
-            resultTextB.text = resultValueB.ToString();
-            CalculationText.text = varvalA.ToString() + acalc.CalcOperator + varvalB.ToString() + "=";
-        }
-        else if (TypeOfCalculation == CalculationType.Addition) {
+        if (getfromFile)
+        {
+            getCalculationFromFile();
+        } else if (TypeOfCalculation == CalculationType.Addition) {
             getNextAddition();
         } else if (TypeOfCalculation == CalculationType.Divide) {
             getNextDivision();
@@ -283,6 +259,8 @@ public class EquationSpawner : MonoBehaviour {
         }
 
     }
+
+
     public void ReplayLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -293,23 +271,24 @@ public class EquationSpawner : MonoBehaviour {
 
     public void PauseGame() {
         Time.timeScale = 0;
-        //Disable scripts that still work while timescale is set to 0
     }
     public void ContinueGame() {
         Time.timeScale = 1;
-        //enable the scripts again
     }
 
-    // Update is called once per frame
+    public void TimerCount() {
+        timer += Time.deltaTime;
+        timerInSeconds = (int)(timer % 60);
+        print(timerInSeconds);
+    }
+
+    private void FlipCounterState() {
+        counterStopped = !counterStopped;
+    }
+
     void Update() {
-        timerSec = (timerSec + Time.deltaTime) % 60;
-        //if (!player.GetComponent<PlayerMovement>().finishedRace) {
-        //    if (timerSec >= SecsToResetSpeed && (player.GetComponent<PlayerMovement>().speed != initialspeed)) {
-        //        //print("reset SPEED");
-        //        //enemyplayer.GetComponent<PlayerMovement>().speed = initialspeed;
-        //        //player.GetComponent<PlayerMovement>().speed = initialspeed;
-        //        //player.transform.GetChild(0).GetChild(GlobalVars.playerskinSelected).GetComponent<AudioSource>().pitch = 1;                          
-        //    }
-        //}
+        if (!counterStopped) {
+            TimerCount();
+        }
     }
 }

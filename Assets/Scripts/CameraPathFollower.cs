@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 
-namespace PathCreation.Examples
+namespace PathCreation.PathFollower
 {
 
     // Moves along a path at constant speed.
     // Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
-    public class CameraTransition : MonoBehaviour
+    public class CameraPathFollower : MonoBehaviour
     {
         public PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
@@ -39,7 +39,7 @@ namespace PathCreation.Examples
                 //transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
             }
             if (distanceTravelled >= pathCreator.path.length) {
-                gameObject.GetComponent<CameraTransition>().enabled = false;
+                gameObject.GetComponent<CameraPathFollower>().enabled = false;
                 //Player.GetComponent<RocketPathFollower>().enabled = true;
                 RocketPathFollower.rocketState = RocketPathFollower.RocketState.StartMoving;
                 

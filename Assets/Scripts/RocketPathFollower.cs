@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PathCreation.Examples
+namespace PathCreation.PathFollower
 {
 
     // Moves along a path at constant speed.
