@@ -8,8 +8,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class EquationSpawner : MonoBehaviour {
     public GameObject player;
-    public GameObject LaunchTheRocketUI;
-    public GameObject CalculationsUI;
+    public GameObject LaunchTheRocketPanel;
+    public GameObject MainMenuPanel;
+    public GameObject CalculationGamePanel;
 
     public Text resultTextA;
     public Text resultTextB;
@@ -35,17 +36,15 @@ public class EquationSpawner : MonoBehaviour {
     private int timerInSeconds=0;
     private bool counterStopped=true;
     private GameSerializedData gameData = new GameSerializedData();
+
     public enum CalculationType {
         Substraction, Addition, Multiply, Divide
     }
 
     void Start() {
-        if (CalculationsUI != null) {
-            CalculationsUI.SetActive(true);
-        }
-        if (LaunchTheRocketUI != null) {
-            LaunchTheRocketUI.SetActive(false);
-        }
+        //if (MainMenuPanel != null) {
+        //    MainMenuPanel.SetActive(true);
+        //}
         StartCoroutine(getCalculation(0));
         FlipCounterState();//start
         resultButA.onClick.AddListener(TaskOnClick);
@@ -81,11 +80,11 @@ public class EquationSpawner : MonoBehaviour {
             FlipCounterState();//stop at the end
             gameData.Score += calculationsToFinish-(TotalTimeForResponses/estimatedTimePerCalc);
             TotalTimeForResponses = timerInSeconds;
-            if (CalculationsUI != null) {
-                CalculationsUI.SetActive(false);
+            if (CalculationGamePanel != null) {
+                CalculationGamePanel.SetActive(false);
             }
-            if (LaunchTheRocketUI != null) {
-                LaunchTheRocketUI.SetActive(true);
+            if (LaunchTheRocketPanel != null) {
+                LaunchTheRocketPanel.SetActive(true);
             }
         }
 
