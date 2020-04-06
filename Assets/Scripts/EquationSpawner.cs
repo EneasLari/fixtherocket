@@ -65,7 +65,7 @@ public class EquationSpawner : MonoBehaviour {
                 resultTextA.text = "";
                 resultTextB.text = "";
                 CalculationText.text = CalculationText.text + CorrectAnswer;
-                StartCoroutine(getCalculation(10));
+                StartCoroutine(getCalculation(1));
                 calculationsFinished--;
                 calculationsFinishedText.text = calculationsFinished.ToString();
                 gameData.Score += CalcListIndex;
