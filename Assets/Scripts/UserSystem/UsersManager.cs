@@ -28,7 +28,7 @@ namespace Assets.Scripts.PersistentData {
         private List<string> _usersNames = null;
         [NonSerialized]
         private List<UserDetails> _usersDetails = null;
-
+        private string _loggedInUser = null;
 
         public List<string> UsersNames {
             get {
@@ -68,6 +68,17 @@ namespace Assets.Scripts.PersistentData {
                 UsersDetails.Add(userDetails);
             }
             return userDetails;
+        }
+        public string LoggedInUser {
+            get {
+                if (_loggedInUser == null) {
+                    _loggedInUser = (new UserDetails()).Name;// UserDetails
+                }
+                return _loggedInUser;
+            }
+            set {
+                _loggedInUser = value;
+            }
         }
 
         private void SaveDetails(SerializationType type) {

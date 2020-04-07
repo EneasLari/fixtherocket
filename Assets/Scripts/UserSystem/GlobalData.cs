@@ -10,7 +10,6 @@ namespace Assets.Scripts.UserSystem.GlobalData {
         private static SerializationType _serialType;
         private static UsersManager _usersManager = null;
         private static Dictionary _sharedDictionary = null;
-        private static string _loggedInUser = null;
         public static UsersManager UsersManager {
             get {
                 if (_usersManager == null) {
@@ -21,18 +20,6 @@ namespace Assets.Scripts.UserSystem.GlobalData {
                     }
                 }
                 return _usersManager;
-            }
-        }
-
-        public static string LoggedInUser {
-            get {
-                if (_loggedInUser == null) {
-                    _loggedInUser =(new UserDetails()).Name;// UserDetails
-                }
-                return _loggedInUser;
-            }
-            set {
-                _loggedInUser = value;
             }
         }
 
