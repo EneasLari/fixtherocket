@@ -48,39 +48,6 @@ namespace Assets.Scripts.PersistentData {
             }
         }
 
-        //public bool AddNewUser(User newuser) {
-        //    if (_users.Exists(x => x.Name.Equals(newuser.Name))) {
-        //        return false;
-        //    } else {
-        //        newuser.DateCreated = DateTime.UtcNow; ;
-        //        _users.Add(newuser);
-        //        return true;
-        //    }
-
-        //}
-
-        //public bool DeleteUser(UserDetails existinguser) {
-        //    User usertodelete = _users.Find(x => x.Name.Equals(existinguser.Name));
-        //    if (usertodelete == null) {
-        //        return false;
-        //    } else {
-        //        return _users.Remove(usertodelete);
-        //    }
-        //}
-
-        //public User AuthenticateUser(string name, string password) {
-        //    User usertoauthenticate = _users.Find(x => x.Name.Equals(name));
-        //    if (usertoauthenticate == null) {
-        //        return null;
-        //    } else {
-        //        if (EncryptDecrypt.Decrypt(usertoauthenticate.Password).Equals(password)) {
-        //            return usertoauthenticate;
-        //        } else {
-        //            return null;
-        //        }
-        //    }
-        //}
-
         public UserDetails GetUserDetails(string filename, SerializationType type) {
             if (UsersNames.Find(x => x.Equals(filename)) == null) {
                 return null;

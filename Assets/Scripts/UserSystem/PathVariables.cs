@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using UnityEngine;
 
 namespace SerializationForGameTest.PersistentData {
     public static class PathVariables {
-        public static string USERSMANAGERPATH = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"EducationalGames\Users");
+        public static string USERSMANAGERPATH = Path.Combine(Application.persistentDataPath, @"EducationalGames\Users");
 
     }
 }

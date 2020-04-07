@@ -8,21 +8,32 @@ namespace PathCreation.PathFollower
     // Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
     public class CameraPathFollower : MonoBehaviour
     {
-        public PathCreator pathCreator;
+        public PathCreator PathToRocketGame;
+        public PathCreator PathToSkinSelection;
+        private PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
         public GameObject Player;
         public float speed = 5;
         float distanceTravelled;
 
         void Start() {
-
+            pathCreator = PathToRocketGame;
         }
 
         void Update() {
-            if (RocketPathFollower.rocketState!=RocketPathFollower.RocketState.None) {
+            if (RocketPathFollower.rocketState!=RocketPathFollower.RocketState.None || pathCreator.Equals(PathToSkinSelection)) {
                 Transit();
             }
 
+        }
+
+        public void ChangeToSkinPath() {
+            pathCreator = PathToSkinSelection;
+        }
+
+        public void ChangeToRocketPath()
+        {
+            pathCreator = PathToRocketGame;
         }
 
         public void BeginCameraTransit() {
