@@ -15,9 +15,12 @@ namespace PathCreation.PathFollower
         public GameObject Player;
         public float speed = 5;
         float distanceTravelled;
-
+        private Vector3 InitialPosition;
+        private Quaternion InitialRotation;
         void Start() {
             pathCreator = PathToRocketGame;
+            InitialPosition = gameObject.transform.position;
+            InitialRotation= gameObject.transform.rotation;
         }
 
         void Update() {
@@ -27,12 +30,19 @@ namespace PathCreation.PathFollower
 
         }
 
+        public void BackToIntialPosition (){
+            gameObject.transform.position = InitialPosition;
+            gameObject.transform.rotation = InitialRotation;
+        }
+
         public void ChangeToSkinPath() {
+            distanceTravelled = 0;
             pathCreator = PathToSkinSelection;
         }
 
         public void ChangeToRocketPath()
         {
+            distanceTravelled = 0;
             pathCreator = PathToRocketGame;
         }
 
@@ -52,7 +62,10 @@ namespace PathCreation.PathFollower
             if (distanceTravelled >= pathCreator.path.length) {
                 gameObject.GetComponent<CameraPathFollower>().enabled = false;
                 //Player.GetComponent<RocketPathFollower>().enabled = true;
-                RocketPathFollower.rocketState = RocketPathFollower.RocketState.StartMoving;
+                if (pathCreator.Equals(PathToRocketGame)) {
+                    RocketPathFollower.rocketState = RocketPathFollower.RocketState.StartMoving;
+                }
+
                 
             }
         }

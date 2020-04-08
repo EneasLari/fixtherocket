@@ -243,7 +243,7 @@ namespace Assets.Scripts.PersistentData {
         }
         public static UserDetails GetUserDetailsFromBinary(string filenamestr) {
             UserDetails userdetails = new UserDetails();
-            userdetails.DeserializeFromXml(filenamestr);
+            userdetails.DeserializeFromBinary(filenamestr);
             return userdetails;
         }
 
