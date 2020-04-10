@@ -100,6 +100,7 @@ namespace Assets.Scripts.PersistentData {
                 UsersNames.Add(username);
                 newuserdetails.Name = username;
                 UsersDetails.Add(newuserdetails);
+                this.LoggedInUser = username;
                 added = true;
             }
             return added;

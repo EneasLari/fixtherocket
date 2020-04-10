@@ -185,7 +185,7 @@ namespace Assets.Scripts.PersistentData {
                 this._sceneSelected = userdetails._sceneSelected;
                 this._timePlaying = userdetails._timePlaying;
                 this._scenesUnlocked = userdetails._scenesUnlocked;
-                this._skinsUnlocked = userdetails._skinsUnlocked;
+                this._skinSelected = userdetails._skinSelected;
             }
             
         }

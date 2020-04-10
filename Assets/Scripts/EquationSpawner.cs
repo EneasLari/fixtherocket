@@ -285,7 +285,7 @@ public class EquationSpawner : MonoBehaviour {
     public void TimerCount() {
         timer += Time.deltaTime;
         timerInSeconds = (int)(timer % 60);
-        print(timerInSeconds);
+        //print(timerInSeconds);
     }
 
     private void FlipCounterState() {

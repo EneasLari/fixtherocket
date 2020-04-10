@@ -10,6 +10,7 @@ namespace PathCreation.PathFollower
     {
         public PathCreator PathToRocketGame;
         public PathCreator PathToSkinSelection;
+        public CanvasManager CanvasGameobject;
         private PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
         public GameObject Player;
@@ -17,20 +18,21 @@ namespace PathCreation.PathFollower
         float distanceTravelled;
         private Vector3 InitialPosition;
         private Quaternion InitialRotation;
+
         void Start() {
             pathCreator = PathToRocketGame;
             InitialPosition = gameObject.transform.position;
-            InitialRotation= gameObject.transform.rotation;
+            InitialRotation = gameObject.transform.rotation;
         }
 
         void Update() {
-            if (RocketPathFollower.rocketState!=RocketPathFollower.RocketState.None || pathCreator.Equals(PathToSkinSelection)) {
+            if (RocketPathFollower.rocketState != RocketPathFollower.RocketState.None || pathCreator.Equals(PathToSkinSelection)) {
                 Transit();
             }
 
         }
 
-        public void BackToIntialPosition (){
+        public void BackToIntialPosition() {
             gameObject.transform.position = InitialPosition;
             gameObject.transform.rotation = InitialRotation;
         }
@@ -40,8 +42,7 @@ namespace PathCreation.PathFollower
             pathCreator = PathToSkinSelection;
         }
 
-        public void ChangeToRocketPath()
-        {
+        public void ChangeToRocketPath() {
             distanceTravelled = 0;
             pathCreator = PathToRocketGame;
         }
@@ -66,7 +67,13 @@ namespace PathCreation.PathFollower
                     RocketPathFollower.rocketState = RocketPathFollower.RocketState.StartMoving;
                 }
 
-                
+            }
+            if (distanceTravelled >= pathCreator.path.length * 0.9f) {
+                if (pathCreator.Equals(PathToSkinSelection)) {
+                    CanvasGameobject.ActivateSkinSelection();
+                }
+
+
             }
         }
 

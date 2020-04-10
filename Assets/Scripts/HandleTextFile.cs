@@ -18,7 +18,7 @@ public class HandleTextFile : MonoBehaviour
             }
 
             string[] oper = s.Split('+', '-', '*', '/', '=');
-            print(oper.Length);
+            //print(oper.Length);
             int i = 0;
             foreach (string op in oper) {
                 oper[i]=op.Trim();
@@ -52,7 +52,7 @@ public class HandleTextFile : MonoBehaviour
             Calculation newCalc = new Calculation(int.Parse(oper[0]), int.Parse(oper[1]), calcoperator, correct, wrong);
             CalculationsList.Add(newCalc);
         }
-        print(CalculationsList.Count);
+        //print(CalculationsList.Count);
     }
 
 }
