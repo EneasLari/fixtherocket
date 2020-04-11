@@ -10,6 +10,7 @@ namespace Assets.Scripts.UserSystem.GlobalData {
         private static SerializationType _serialType;
         private static UsersManager _usersManager = null;
         private static Dictionary _sharedDictionary = null;
+        private static GeneralSettings _generalSettings = null;
         public static UsersManager UsersManager {
             get {
                 if (_usersManager == null) {
@@ -23,15 +24,6 @@ namespace Assets.Scripts.UserSystem.GlobalData {
             }
         }
 
-        public static SerializationType SerialType{
-            get{return _serialType;}
-            set{ _serialType = value; }
-        }
-
-        internal static void SerializeAll() {
-            UsersManager.Serialize(SerialType);
-        }
-
         public static Dictionary SharedDictionary {
             get {
                 if (_sharedDictionary == null) {
@@ -43,6 +35,29 @@ namespace Assets.Scripts.UserSystem.GlobalData {
                 }
                 return _sharedDictionary;
             }
+        }
+
+        public static GeneralSettings GeneralSettings {
+            get {
+                if (_generalSettings == null) {
+                    if (_serialType == SerializationType.Xml) {
+                        _generalSettings = GeneralSettings.GetSettingsFromXml();
+                    } else if (_serialType == SerializationType.Binary) {
+                        _generalSettings = GeneralSettings.GetSettingsFromBinary();
+                    }
+                }
+                return _generalSettings;
+            }
+        }
+
+        public static SerializationType SerialType{
+            get{return _serialType;}
+            set{ _serialType = value; }
+        }
+
+        internal static void SerializeAll() {
+            UsersManager.Serialize(SerialType);
+            GeneralSettings.Serialize(SerialType);
         }
     }
 }

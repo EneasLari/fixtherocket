@@ -104,8 +104,8 @@ public class EquationSpawner : MonoBehaviour {
         varvalA = acalc.OperandA;
         varvalB = acalc.OperandB;
         CorrectAnswer = acalc.CorrectRes;
-        float rand = Random.Range(0, 1);
-        if (rand > 0.5f)
+        int rand = Random.Range(0, 100);
+        if (rand > 50f)
         {
             resultValueA = acalc.WrongRes;
             resultValueB = acalc.CorrectRes;

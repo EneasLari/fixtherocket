@@ -7,6 +7,7 @@ using UnityEngine;
 namespace SerializationForGameTest.PersistentData {
     public static class PathVariables {
         public static string USERSMANAGERPATH = Path.Combine(Application.persistentDataPath, @"EducationalGames\Users");
+        public static string SETTINGSPATH = Path.Combine(Application.persistentDataPath, @"EducationalGames\Settings");
 
     }
 }

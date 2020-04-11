@@ -136,50 +136,58 @@ public class CanvasManager : MonoBehaviour
     }
     public void NextSkin() {
         if (CurrentSkinIndexofIndex < (rocketsIndexList.Count - 1)) {
-            print(rocketsIndexList[CurrentSkinIndexofIndex + 1] + "  --  "+ (rocketsIndexList.Count - 1));
-            RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.SetActive(true);
 
-            RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.SetActive(true);
+            RocketProperties rockProp = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.GetComponent<RocketProperties>();
+            float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+            if ((rockProp.PointsToUnlock < usersScore)) {
+                RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+                RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.SetActive(true);
 
-            CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.name;
-            CurrentSkinIndexofIndex++;
-        } else {
-            RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParent.transform.GetChild(rocketsIndexList[0]).gameObject.SetActive(true);
+                RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+                RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.SetActive(true);
 
-            RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParentInGame.transform.GetChild(rocketsIndexList[0]).gameObject.SetActive(true);
+                CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.name;
+                CurrentSkinIndexofIndex++;
+                return;
+            }
 
-            CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[0]).gameObject.name;
-            CurrentSkinIndexofIndex = 0;
         }
-        
+        RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+        RocketParent.transform.GetChild(rocketsIndexList[0]).gameObject.SetActive(true);
 
+        RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+        RocketParentInGame.transform.GetChild(rocketsIndexList[0]).gameObject.SetActive(true);
+
+        CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[0]).gameObject.name;
+        CurrentSkinIndexofIndex = 0;
     }
 
     public void PreviousSkin() {
         if (CurrentSkinIndexofIndex > 0) {
-            print(rocketsIndexList[CurrentSkinIndexofIndex] + "  --  " + (rocketsIndexList.Count - 1));
-            RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.SetActive(true);
 
-            RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.SetActive(true);
+            RocketProperties rockProp = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.GetComponent<RocketProperties>();
+            float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+            if ((rockProp.PointsToUnlock < usersScore)) {
+                RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+                RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.SetActive(true);
 
-            CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.name;
-            CurrentSkinIndexofIndex--;
-        } else {
-            RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count-1]).gameObject.SetActive(true);
+                RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+                RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.SetActive(true);
 
-            RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-            RocketParentInGame.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.SetActive(true);
-
-            CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.name;
-            CurrentSkinIndexofIndex = rocketsIndexList.Count - 1;
+                CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.name;
+                CurrentSkinIndexofIndex--;
+                return;
+            }
         }
+        RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+        RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.SetActive(true);
+
+        RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
+        RocketParentInGame.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.SetActive(true);
+
+        CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.name;
+        CurrentSkinIndexofIndex = rocketsIndexList.Count - 1;
+
     }
 
     public  void ActivateSkinSelection() {

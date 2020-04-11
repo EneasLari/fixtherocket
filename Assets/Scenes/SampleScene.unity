@@ -651,6 +651,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: abac5006720cda243a0553058850b738, type: 3}
+--- !u!1 &167659512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122864127984389, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &167659516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167659512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 500
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &192909972 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 6409d787802190b4b81b044ea53906bd,
@@ -2718,6 +2739,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &563775389 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122863154371063, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &563775394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563775389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 500
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &585594171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,6 +2793,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &595100323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122862501654918, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &595100327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595100323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 500
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &624937334 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 6409d787802190b4b81b044ea53906bd,
@@ -8546,6 +8609,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6409d787802190b4b81b044ea53906bd, type: 3}
+--- !u!1 &867351608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122862586081735, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &867351613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867351608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 500
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &902953897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 6409d787802190b4b81b044ea53906bd,
@@ -13637,6 +13721,27 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1028906090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122863984579729, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1028906095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028906090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 500
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1001 &1045969763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13816,6 +13921,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6409d787802190b4b81b044ea53906bd, type: 3}
+--- !u!1 &1117784575 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122864084612414, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1117784580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117784575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 500
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &1155792951 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 6409d787802190b4b81b044ea53906bd,
@@ -14224,6 +14350,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71d1a1ed7bd8d0e4a9fbc80e86867a7d, type: 3}
+--- !u!1 &1198956127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122863478059781, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1198956132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198956127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 20
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &1202871504
 GameObject:
   m_ObjectHideFlags: 0
@@ -14379,6 +14526,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6409d787802190b4b81b044ea53906bd, type: 3}
+--- !u!1 &1223925308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122864049816123, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1223925313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223925308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 20
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &1236641510 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 6409d787802190b4b81b044ea53906bd,
@@ -15647,6 +15815,27 @@ MonoBehaviour:
   BeforeExplosion: {fileID: 138318993}
   ExplosionPower: 100
   OnLosePanel: {fileID: 2073978761}
+--- !u!1 &1581683614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122864075538168, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1581683619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581683614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 20
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1001 &1600474803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26026,6 +26215,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1852169089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 434122864220827571, guid: d4e05d01827b1e9418ea70552d3fe53c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045969763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1852169094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852169089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointsToUnlock: 20
+  Speed: 10
+  rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &1897771467 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 6409d787802190b4b81b044ea53906bd,
@@ -27121,6 +27331,11 @@ PrefabInstance:
       propertyPath: RocketParentInGame
       value: 
       objectReference: {fileID: 8296172668755951555}
+    - target: {fileID: 3780869404365237415, guid: dbec29c5d7231c64aba6dd4336a39ae3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5324091064301292730, guid: dbec29c5d7231c64aba6dd4336a39ae3,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
@@ -27136,6 +27351,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
       objectReference: {fileID: 5797945}
+    - target: {fileID: 6212217026877762432, guid: dbec29c5d7231c64aba6dd4336a39ae3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6850052491105587489, guid: dbec29c5d7231c64aba6dd4336a39ae3,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -27178,11 +27398,6 @@ PrefabInstance:
       propertyPath: OnWinPanel
       value: 
       objectReference: {fileID: 1925375887}
-    - target: {fileID: 434122864049816123, guid: d4e05d01827b1e9418ea70552d3fe53c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8441924279697765446, guid: d4e05d01827b1e9418ea70552d3fe53c,
         type: 3}
       propertyPath: m_Name
