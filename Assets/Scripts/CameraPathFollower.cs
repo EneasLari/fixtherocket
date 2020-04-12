@@ -65,6 +65,7 @@ namespace PathCreation.PathFollower
                 //Player.GetComponent<RocketPathFollower>().enabled = true;
                 if (pathCreator.Equals(PathToRocketGame)) {
                     RocketPathFollower.rocketState = RocketPathFollower.RocketState.StartMoving;
+                    gameObject.GetComponent<ThirdPersonCamera>().enabled = true;
                 }
 
             }

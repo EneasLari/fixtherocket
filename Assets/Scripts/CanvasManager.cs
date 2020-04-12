@@ -180,13 +180,22 @@ public class CanvasManager : MonoBehaviour
             }
         }
         RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-        RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.SetActive(true);
-
         RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
-        RocketParentInGame.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.SetActive(true);
+        int i = 1;
+        float point = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
+        float playerpoints = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+        while (point > playerpoints) {
+            if (i == rocketsIndexList.Count) {
+                break;
+            }
+            i++;
+            point = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
+        }
+        RocketParentInGame.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.SetActive(true);
+        RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.SetActive(true);
 
-        CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - 1]).gameObject.name;
-        CurrentSkinIndexofIndex = rocketsIndexList.Count - 1;
+        CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.name;
+        CurrentSkinIndexofIndex = rocketsIndexList.Count - i;
 
     }
 
