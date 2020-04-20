@@ -6,20 +6,22 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    private AudioSource adSource;
+    private AudioSource BackgroundMusicAudioSource;//it is attached in the same gameobject
+    public AudioSource RocketSfxAudioSource;//it is attached to the rocket
     public AudioClip[] adClips;
     public Slider SoundSlider;
     // Start is called before the first frame update
     void Start()
     {
-        adSource = GetComponent<AudioSource>();
+        BackgroundMusicAudioSource = GetComponent<AudioSource>();
         ShuffleClipsArray(adClips);
-        if (adSource != null) {
+        if (BackgroundMusicAudioSource != null) {
             StartCoroutine(playAudioSequentially());
         } else {
             print("AUDIOSOURCE MISSING");
         }
-        adSource.volume = GlobalData.GeneralSettings.Mastervolume;
+        BackgroundMusicAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
+        RocketSfxAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
         SoundSlider.value= GlobalData.GeneralSettings.Mastervolume;
     }
 
@@ -41,18 +43,18 @@ public class SettingsManager : MonoBehaviour
         //1.Loop through each AudioClip
         for (int i = 0; i < adClips.Length; i++) {
             //2.Assign current AudioClip to audiosource
-            adSource.clip = adClips[i];
+            BackgroundMusicAudioSource.clip = adClips[i];
 
             //3.Play Audio
-            adSource.Play();
+            BackgroundMusicAudioSource.Play();
 
             //4.Wait for it to finish playing
-            while (adSource.isPlaying) {
+            while (BackgroundMusicAudioSource.isPlaying) {
                 yield return null;
             }
 
             //5. Go back to #2 and play the next audio in the adClips array
-            if (i == adClips.Length - 1 && !adSource.isPlaying) {
+            if (i == adClips.Length - 1 && !BackgroundMusicAudioSource.isPlaying) {
                 print("Restart Music");
                 i = 0;
             }
@@ -60,10 +62,11 @@ public class SettingsManager : MonoBehaviour
     }
 
     public void soundVolume() {
-        if (adSource != null) {
+        if (BackgroundMusicAudioSource != null) {
             print(SoundSlider.value);
-            adSource.volume = SoundSlider.value;
-            GlobalData.GeneralSettings.Mastervolume = adSource.volume;
+            BackgroundMusicAudioSource.volume = SoundSlider.value;
+            RocketSfxAudioSource.volume = SoundSlider.value;
+            GlobalData.GeneralSettings.Mastervolume = BackgroundMusicAudioSource.volume;
         }
     }
 

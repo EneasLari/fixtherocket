@@ -12,6 +12,10 @@ namespace Assets.Scripts.PersistentData {
     public enum LetterCase { None, LowerCase, UpperCase, Capitalize };
 
     public enum SerializationType { Xml, Binary};
+    public enum PanelState { InMainMenu, InGameMenu };
+
+    public enum Difficulty { Easy,Medium, Difficult }
+
     public class Enums {
         public static Language LanguageFromString(string stringenum) {
             if (stringenum.Equals(Language.Greek.ToString())) {

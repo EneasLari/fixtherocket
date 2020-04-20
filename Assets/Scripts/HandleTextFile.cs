@@ -6,10 +6,14 @@ using Entities.MathEquations;
 
 public class HandleTextFile : MonoBehaviour
 {
-    public TextAsset textFile;     // drop your file here in inspector
+    public TextAsset[] textFileArray;     // drop your file here in inspector
     public static List<Calculation> CalculationsList = new List<Calculation>();
-    public string[] Array;
     void Awake() {
+        ParseFile(textFileArray[0]);
+        //print(CalculationsList.Count);
+    }
+
+    private void ParseFile(TextAsset textFile) {
         string[] CalculationsLines = textFile.text.Split('\n');  //this is the content as string
         byte[] byteText = textFile.bytes;  //this is the content as byte array
         foreach (string s in CalculationsLines) {
@@ -21,7 +25,7 @@ public class HandleTextFile : MonoBehaviour
             //print(oper.Length);
             int i = 0;
             foreach (string op in oper) {
-                oper[i]=op.Trim();
+                oper[i] = op.Trim();
                 i++;
             }
 
@@ -40,7 +44,7 @@ public class HandleTextFile : MonoBehaviour
                 calcoperator = "/";
                 correct = int.Parse(oper[0]) / int.Parse(oper[1]);
             }
-            string resulta = oper[2].Split(' ')[0].Trim(' ',',');
+            string resulta = oper[2].Split(' ')[0].Trim(' ', ',');
             string resultb = oper[2].Split(' ')[1].Trim(' ', ',');
             int wrong = 0;
             if (int.Parse(resulta) == correct) {
@@ -52,7 +56,5 @@ public class HandleTextFile : MonoBehaviour
             Calculation newCalc = new Calculation(int.Parse(oper[0]), int.Parse(oper[1]), calcoperator, correct, wrong);
             CalculationsList.Add(newCalc);
         }
-        //print(CalculationsList.Count);
     }
-
 }

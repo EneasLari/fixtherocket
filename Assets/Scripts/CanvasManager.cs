@@ -24,6 +24,9 @@ public class CanvasManager : MonoBehaviour
     private List<int> rocketsIndexList;
     private string CurrentSkin = null;
     private int CurrentSkinIndexofIndex = -1;
+    public static PanelState panelState;
+    public GameObject MainMenuPanel;
+    public GameObject CalculationGamePanel;
 
     private void Awake() {
         GlobalData.SerialType = SerializationType.Binary;
@@ -34,6 +37,12 @@ public class CanvasManager : MonoBehaviour
         Initialize();
         SkinSelectionPanel.SetActive(false);
         RocketsCollection.SetActive(false);
+        if (panelState == PanelState.InGameMenu) {
+            print("INGAMEMENU");
+            MainMenuPanel.SetActive(false);
+            CalculationGamePanel.SetActive(true);
+            panelState = PanelState.InMainMenu;
+        }
         CurrentSkinInitilization();
     }
 

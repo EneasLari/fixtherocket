@@ -20,6 +20,7 @@ namespace Assets.Scripts.PersistentData {
         private int _coins = 0;
         private string _skinSelected =null;
         private string _sceneSelected = null;
+        private Difficulty _difficultySelected;
         private List<String> _skinsUnlocked = null;
         private List<String> _scenesUnlocked = null;
         private float _timePlaying=0;
@@ -83,6 +84,11 @@ namespace Assets.Scripts.PersistentData {
         public List<String> ScenesUnlocked {
             get { return _scenesUnlocked; }
             set { _scenesUnlocked = value; }
+        }
+
+        public Difficulty DifficultySelected {
+            get { return _difficultySelected; }
+            set { _difficultySelected = value; }
         }
 
         public float TimePlaying {
@@ -186,6 +192,7 @@ namespace Assets.Scripts.PersistentData {
                 this._timePlaying = userdetails._timePlaying;
                 this._scenesUnlocked = userdetails._scenesUnlocked;
                 this._skinSelected = userdetails._skinSelected;
+                this._difficultySelected = userdetails._difficultySelected;
             }
             
         }

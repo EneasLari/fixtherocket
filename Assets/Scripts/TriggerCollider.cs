@@ -1,4 +1,6 @@
-﻿using PathCreation;
+﻿using Assets.Scripts.PersistentData;
+using Assets.Scripts.UserSystem.GlobalData;
+using PathCreation;
 using PathCreation.Examples;
 using PathCreation.PathFollower;
 using System.Collections;
@@ -8,12 +10,18 @@ using UnityEngine;
 public class TriggerCollider : MonoBehaviour
 {
 
-    public AudioSource ExplosionAudioSource;
+    private AudioSource ExplosionAudioSource;
     public AudioClip ExplosionClip;
     public GameObject BeforeExplosion;
     public float ExplosionPower = 60f;
     public GameObject OnLosePanel;
 
+
+    private void Start() {
+        GlobalData.SerialType = SerializationType.Binary;
+        ExplosionAudioSource=gameObject.GetComponent<AudioSource>();
+        ExplosionAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
+    }
     void OnCollisionEnter(Collision collision) {
         switch (collision.gameObject.tag) {
             case "Player":
@@ -98,6 +106,13 @@ public class TriggerCollider : MonoBehaviour
 
     public void LoadOnLosePanel() {
         OnLosePanel.SetActive(true);
+    }
+
+    private void Update() {
+        if (ExplosionAudioSource.volume != GlobalData.GeneralSettings.Mastervolume) {
+            ExplosionAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
+        }
+        
     }
 
 }

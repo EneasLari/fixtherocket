@@ -29,7 +29,7 @@ public class EquationSpawner : MonoBehaviour {
     public CalculationType TypeOfCalculation;
     public int calculationsFinished = 3;
     private int calculationsToFinish;
-    public int estimatedTimePerCalc = 4;
+    public int estimatedTimePerCalc = 5;
     public bool getfromFile = false;
     public int TotalTimeForResponses = 0;
 
@@ -48,7 +48,6 @@ public class EquationSpawner : MonoBehaviour {
     void Start() {
         GlobalData.SerialType = SerializationType.Binary;
         StartCoroutine(getCalculation(0));
-        FlipCounterState();//start
         resultButA.onClick.AddListener(TaskOnClick);
         resultButB.onClick.AddListener(TaskOnClick);
         calculationsFinishedText.text = calculationsFinished.ToString();
@@ -58,6 +57,11 @@ public class EquationSpawner : MonoBehaviour {
 
     public void TaskOnClick() {
         string clicked = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
+        EventSystem.current.SetSelectedGameObject(null);
+        if (clicked.Equals("")) {
+            return;
+        }
+
         if (calculationsFinished > 1) {
             if (int.Parse(clicked) == CorrectAnswer) {
                 resultTextA.text = "";
@@ -66,7 +70,6 @@ public class EquationSpawner : MonoBehaviour {
                 StartCoroutine(getCalculation(1));
                 calculationsFinished--;
                 calculationsFinishedText.text = calculationsFinished.ToString();
-                GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser,GlobalData.SerialType).Score += CalcListIndex;
                 score += CalcListIndex;
                 ScoreText.text = score.ToString();
             } else {
@@ -79,10 +82,13 @@ public class EquationSpawner : MonoBehaviour {
             //print("You have more " + calculationsFinished + " calcs to finish");
         } else {
             FlipCounterState();//stop at the end
+            TotalTimeForResponses = timerInSeconds;
+            GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score += score;
             GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score += calculationsToFinish-(TotalTimeForResponses/estimatedTimePerCalc);
+            print("SECONMDSDFS "+ TotalTimeForResponses);
+            print("WE ARE ADDING ? " + (calculationsToFinish - (TotalTimeForResponses / estimatedTimePerCalc)));
             score += calculationsToFinish - (TotalTimeForResponses / estimatedTimePerCalc); ;
             ScoreText.text = score.ToString();
-            TotalTimeForResponses = timerInSeconds;
             if (CalculationGamePanel != null) {
                 CalculationGamePanel.SetActive(false);
             }
@@ -268,11 +274,12 @@ public class EquationSpawner : MonoBehaviour {
 
     public void ReplayLevel() {
         RocketPathFollower.rocketState = RocketPathFollower.RocketState.None;
+        CanvasManager.panelState = PanelState.InGameMenu;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void MainLevel() {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
+        RocketPathFollower.rocketState = RocketPathFollower.RocketState.None;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void PauseGame() {
@@ -293,6 +300,10 @@ public class EquationSpawner : MonoBehaviour {
     }
 
     void Update() {
+        if (CalculationGamePanel.activeSelf) {
+            FlipCounterState();//start
+        }
+        print(timerInSeconds);
         if (!counterStopped) {
             TimerCount();
         }
