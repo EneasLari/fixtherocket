@@ -9,6 +9,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static MathematicalProblems;
+
 public class EquationSpawner : MonoBehaviour {
     public GameObject player;
     public GameObject LaunchTheRocketPanel;
@@ -31,6 +33,7 @@ public class EquationSpawner : MonoBehaviour {
     private int calculationsToFinish;
     public int estimatedTimePerCalc = 5;
     public bool getfromFile = false;
+    public bool getMathProblems = false;
     public int TotalTimeForResponses = 0;
 
     private int CorrectAnswer;
@@ -63,10 +66,11 @@ public class EquationSpawner : MonoBehaviour {
         }
 
         if (calculationsFinished > 1) {
-            if (int.Parse(clicked) == CorrectAnswer) {
+            if (int.Parse(clicked) == CorrectAnswer || (getMathProblems && MathematicalProblems.MathProblems[CalcListIndex-1].Answers[CorrectAnswer].Equals(clicked) )) {
+                print(MathematicalProblems.MathProblems[CalcListIndex - 1].Answers[CorrectAnswer]);
                 resultTextA.text = "";
                 resultTextB.text = "";
-                CalculationText.text = CalculationText.text + CorrectAnswer;
+                CalculationText.text = CalculationText.text +" "+ clicked;
                 StartCoroutine(getCalculation(1));
                 calculationsFinished--;
                 calculationsFinishedText.text = calculationsFinished.ToString();
@@ -85,8 +89,6 @@ public class EquationSpawner : MonoBehaviour {
             TotalTimeForResponses = timerInSeconds;
             GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score += score;
             GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score += calculationsToFinish-(TotalTimeForResponses/estimatedTimePerCalc);
-            print("SECONMDSDFS "+ TotalTimeForResponses);
-            print("WE ARE ADDING ? " + (calculationsToFinish - (TotalTimeForResponses / estimatedTimePerCalc)));
             score += calculationsToFinish - (TotalTimeForResponses / estimatedTimePerCalc); ;
             ScoreText.text = score.ToString();
             if (CalculationGamePanel != null) {
@@ -124,6 +126,25 @@ public class EquationSpawner : MonoBehaviour {
         resultTextB.text = resultValueB.ToString();
         CalculationText.text = varvalA.ToString() + acalc.CalcOperator + varvalB.ToString() + "=";
     }
+
+    private void getMathProblem() {
+        string varvalA;
+        string varvalB;
+        MathProblem acalc = MathematicalProblems.MathProblems[CalcListIndex];
+
+        varvalA = acalc.Answers[0];
+        varvalB = acalc.Answers[1];
+        CorrectAnswer = acalc.CorrectAnswerIndex;
+        resultTextA.text = varvalA;
+        resultTextB.text = varvalB;
+        CalculationText.text =acalc.Problem;
+        if (CalcListIndex == 0) {
+            CalculationText.fontSize = CalculationText.fontSize / 2;
+        }
+        CalcListIndex++;
+        print(acalc.Problem);
+    }
+
 
     public void getNextAddition() {
         int resultValueA;
@@ -253,8 +274,9 @@ public class EquationSpawner : MonoBehaviour {
 
     public IEnumerator getCalculation(int secstowait) {
         yield return new WaitForSeconds(secstowait);
-        if (getfromFile)
-        {
+        if (getMathProblems) {
+            getMathProblem();
+        } else if (getfromFile) {
             getCalculationFromFile();
         } else if (TypeOfCalculation == CalculationType.Addition) {
             getNextAddition();

@@ -14,7 +14,7 @@ namespace PathCreation.PathFollower
         private PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
         public GameObject Player;
-        public float speed = 5;
+        public float speed = 8;
         float distanceTravelled;
         private Vector3 InitialPosition;
         private Quaternion InitialRotation;
@@ -39,16 +39,17 @@ namespace PathCreation.PathFollower
 
         public void ChangeToSkinPath() {
             distanceTravelled = 0;
+            speed = speed * 4;
             pathCreator = PathToSkinSelection;
         }
 
         public void ChangeToRocketPath() {
             distanceTravelled = 0;
+            speed = speed / 4;
             pathCreator = PathToRocketGame;
         }
 
         public void BeginCameraTransit() {
-            //Player.GetComponent<RocketPathFollower>().enabled=false;
             if (pathCreator != null) {
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
                 pathCreator.pathUpdated += OnPathChanged;

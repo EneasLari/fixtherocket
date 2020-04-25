@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: b8f20d5ca50d16143afc11f5e4af6fc1, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e980bc7fbb00dc34b86b95ac842d1920, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17053756, g: 0.1282, b: 0.07408545, a: 1}
+  m_IndirectSpecularColor: {r: 0.28622675, g: 0.33516777, b: 0.5214453, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointsToUnlock: 500
+  PointsToUnlock: 10
   Speed: 10
   rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &192909972 stripped
@@ -2773,7 +2773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointsToUnlock: 500
+  PointsToUnlock: 10
   Speed: 10
   rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &585594171
@@ -2827,7 +2827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointsToUnlock: 500
+  PointsToUnlock: 10
   Speed: 10
   rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &614824565 stripped
@@ -8649,7 +8649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointsToUnlock: 500
+  PointsToUnlock: 10
   Speed: 10
   rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &902953897 stripped
@@ -13857,7 +13857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointsToUnlock: 500
+  PointsToUnlock: 10
   Speed: 10
   rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1001 &1045969763
@@ -14058,7 +14058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dbcc2516b3b9e478d68a1a6b87b553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointsToUnlock: 500
+  PointsToUnlock: 10
   Speed: 10
   rocketPathFollower: {fileID: 8296172668755951556}
 --- !u!1 &1155792951 stripped
