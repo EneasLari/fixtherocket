@@ -18,7 +18,8 @@ namespace Assets.Scripts.PersistentData
         private float _sfxvolume = 1;
         private float _musicvolume = 1;
         private float _mastervolume = 1;
-
+        private bool _mutemusic = false;
+        private bool _mutesounds = false;
 
         public float SFXVolume {
             get { return _sfxvolume; }
@@ -32,6 +33,16 @@ namespace Assets.Scripts.PersistentData
         public float Mastervolume {
             get { return _mastervolume; }
             set { _mastervolume = value; }
+        }
+
+        public bool MuteMusic {
+            get { return _mutemusic; }
+            set { _mutemusic = value; }
+        }
+
+        public bool MuteSounds {
+            get { return _mutesounds; }
+            set { _mutesounds = value; }
         }
 
 
@@ -82,6 +93,8 @@ namespace Assets.Scripts.PersistentData
                 this._sfxvolume = Settings._sfxvolume;
                 this._mastervolume = Settings._mastervolume;
                 this._musicvolume = Settings._musicvolume;
+                this._mutemusic = Settings._mutemusic;
+                this._mutesounds = Settings._mutesounds;
             }
         }
 
@@ -114,6 +127,8 @@ namespace Assets.Scripts.PersistentData
                 this._sfxvolume = Settings._sfxvolume;
                 this._mastervolume = Settings._mastervolume;
                 this._musicvolume = Settings._musicvolume;
+                this._mutemusic = Settings._mutemusic;
+                this._mutesounds = Settings._mutesounds;
             }
         }
 

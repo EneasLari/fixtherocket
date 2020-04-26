@@ -29,10 +29,10 @@ namespace PathCreation.PathFollower
         }
 
         void Update() {
-            if (Input.GetMouseButtonDown(0))
-                print("Pressed");
-            else if (Input.GetMouseButtonUp(0))
-                print("Released");
+            //if (Input.GetMouseButtonDown(0))
+            //    print("Pressed");
+            //else if (Input.GetMouseButtonUp(0))
+            //    print("Released");
 
             if (rocketState == RocketState.StartEngines) {
                 StartTheEngines();

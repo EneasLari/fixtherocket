@@ -23,6 +23,8 @@ public class SettingsManager : MonoBehaviour
         BackgroundMusicAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
         RocketSfxAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
         SoundSlider.value= GlobalData.GeneralSettings.Mastervolume;
+        RocketSfxAudioSource.mute = GlobalData.GeneralSettings.MuteSounds;
+        BackgroundMusicAudioSource.mute = GlobalData.GeneralSettings.MuteMusic;
     }
 
 
@@ -63,7 +65,7 @@ public class SettingsManager : MonoBehaviour
 
     public void soundVolume() {
         if (BackgroundMusicAudioSource != null) {
-            print(SoundSlider.value);
+            //print(SoundSlider.value);
             BackgroundMusicAudioSource.volume = SoundSlider.value;
             RocketSfxAudioSource.volume = SoundSlider.value;
             GlobalData.GeneralSettings.Mastervolume = BackgroundMusicAudioSource.volume;
@@ -73,6 +75,16 @@ public class SettingsManager : MonoBehaviour
     public void SetSliderValue() {
         SoundSlider.value= GlobalData.GeneralSettings.Mastervolume;
     }
+
+    public void MuteSounds() {
+        GlobalData.GeneralSettings.MuteSounds = !GlobalData.GeneralSettings.MuteSounds;
+        RocketSfxAudioSource.mute= GlobalData.GeneralSettings.MuteSounds;
+    }
+    public void MuteBackgroundMusic() {
+        GlobalData.GeneralSettings.MuteMusic = !GlobalData.GeneralSettings.MuteMusic;
+        BackgroundMusicAudioSource.mute = GlobalData.GeneralSettings.MuteMusic;
+    }
+
 
     // Update is called once per frame
     void Update()

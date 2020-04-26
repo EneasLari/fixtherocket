@@ -21,6 +21,7 @@ public class TriggerCollider : MonoBehaviour
         GlobalData.SerialType = SerializationType.Binary;
         ExplosionAudioSource=gameObject.GetComponent<AudioSource>();
         ExplosionAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
+        ExplosionAudioSource.mute = GlobalData.GeneralSettings.MuteSounds;
     }
     void OnCollisionEnter(Collision collision) {
         switch (collision.gameObject.tag) {
@@ -111,6 +112,9 @@ public class TriggerCollider : MonoBehaviour
     private void Update() {
         if (ExplosionAudioSource.volume != GlobalData.GeneralSettings.Mastervolume) {
             ExplosionAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
+        }
+        if (ExplosionAudioSource.mute!=GlobalData.GeneralSettings.MuteSounds) {
+            ExplosionAudioSource.mute = GlobalData.GeneralSettings.MuteSounds;
         }
         
     }

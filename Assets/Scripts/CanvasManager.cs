@@ -62,7 +62,7 @@ public class CanvasManager : MonoBehaviour
             foreach (Transform gm in RocketParent.transform) {
                 if (gm.gameObject.name.Equals(CurrentSkin)) {
                     CurrentSkinIndexofIndex = rocketsIndexList.FindIndex(x => x == i);
-                    print(rocketsIndexList[CurrentSkinIndexofIndex]);
+                    //print(rocketsIndexList[CurrentSkinIndexofIndex]);
                 } 
                 i++;
             }

@@ -142,7 +142,7 @@ public class EquationSpawner : MonoBehaviour {
             CalculationText.fontSize = CalculationText.fontSize / 2;
         }
         CalcListIndex++;
-        print(acalc.Problem);
+        //print(acalc.Problem);
     }
 
 
