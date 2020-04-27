@@ -11,6 +11,24 @@ using System.Xml.Serialization;
 using static Assets.Scripts.PersistentData.Dictionary;
 
 namespace Assets.Scripts.PersistentData {
+
+    [Serializable]
+    public class Chapters {
+
+        public bool taksi1enotita1 = true;
+        public bool taksi1enotita2 = true;
+        public bool taksi1enotita3 = true;
+        public bool taksi1enotita4 = true;
+        public bool taksi2enotita1 = true;
+        public bool taksi2enotita2 = true;
+        public bool taksi2enotita3 = true;
+        public bool taksi2enotita4 = true;
+        public bool taksi3enotita1 = true;
+        public bool taksi3enotita2 = true;
+        public bool taksi3enotita3 = true;
+        public bool taksi3enotita4 = true;
+    }
+
     [Serializable]
     public class UserDetails {
         private string _name=null;
@@ -28,6 +46,7 @@ namespace Assets.Scripts.PersistentData {
         private List<Word> _savedWordsList= new List<Word>();
         private DateTime _startTimer= DateTime.MinValue;
         private DateTime _dateCreated = DateTime.MinValue;
+        private Chapters _chapters=null;
 
         public string Name {
             get {
@@ -117,6 +136,18 @@ namespace Assets.Scripts.PersistentData {
             set { _savedWordsList = value; }
         }
 
+        public Chapters Chapters {
+            get {
+                if (_chapters == null) {
+                    _chapters = new Chapters();
+                }
+                return _chapters;
+            }
+            set {
+                _chapters = value;
+            }
+        }
+
         public bool AddtoCollectedWords(Word newWord) {
             if (_collectedWordsList.Exists(x => x.Wordstr.Equals(newWord.Wordstr))) {
                 return false;
@@ -193,6 +224,7 @@ namespace Assets.Scripts.PersistentData {
                 this._scenesUnlocked = userdetails._scenesUnlocked;
                 this._skinSelected = userdetails._skinSelected;
                 this._difficultySelected = userdetails._difficultySelected;
+                this._chapters = userdetails._chapters;
             }
             
         }

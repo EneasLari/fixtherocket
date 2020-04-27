@@ -325,7 +325,6 @@ public class EquationSpawner : MonoBehaviour {
         if (CalculationGamePanel.activeSelf) {
             FlipCounterState();//start
         }
-        print(timerInSeconds);
         if (!counterStopped) {
             TimerCount();
         }

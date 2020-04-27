@@ -39,13 +39,13 @@ namespace PathCreation.PathFollower
 
         public void ChangeToSkinPath() {
             distanceTravelled = 0;
-            speed = speed * 4;
+            speed = speed * 6;
             pathCreator = PathToSkinSelection;
         }
 
         public void ChangeToRocketPath() {
             distanceTravelled = 0;
-            speed = speed / 4;
+            speed = speed / 6;
             pathCreator = PathToRocketGame;
         }
 
