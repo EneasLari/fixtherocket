@@ -66,8 +66,7 @@ public class EquationSpawner : MonoBehaviour {
         }
 
         if (calculationsFinished > 1) {
-            if (int.Parse(clicked) == CorrectAnswer || (getMathProblems && MathematicalProblems.MathProblems[CalcListIndex-1].Answers[CorrectAnswer].Equals(clicked) )) {
-                print(MathematicalProblems.MathProblems[CalcListIndex - 1].Answers[CorrectAnswer]);
+            if ((getMathProblems && MathematicalProblems.MathProblems[CalcListIndex-1].Answers[CorrectAnswer].Equals(clicked) )) {
                 resultTextA.text = "";
                 resultTextB.text = "";
                 CalculationText.text = CalculationText.text +" "+ clicked;
