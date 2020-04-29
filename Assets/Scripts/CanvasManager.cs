@@ -16,6 +16,9 @@ public class CanvasManager : MonoBehaviour
     public InputField NewUserNameInput;
     public Text ScoreText;
     public Text LoggenInUser;
+    public Text ScoreText_UnlockPanel;
+    public Text YourScore_UnlockPanel;
+    public Text MessageForUnlock;
     public GameObject MainCamera;
     public GameObject SkinSelectionPanel;
     public GameObject RocketsCollection;
@@ -44,6 +47,7 @@ public class CanvasManager : MonoBehaviour
             panelState = PanelState.InMainMenu;
         }
         CurrentSkinInitilization();
+        YourScore_UnlockPanel.text = YourScore_UnlockPanel.text+ GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser,GlobalData.SerialType).Score.ToString();
     }
 
     public void CurrentSkinInitilization() {
@@ -77,11 +81,20 @@ public class CanvasManager : MonoBehaviour
         }
         RocketParent.transform.Find(CurrentSkin).gameObject.SetActive(true);
         RocketParentInGame.transform.Find(CurrentSkin).gameObject.SetActive(true);
+        ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": " + RocketParent.transform.Find(CurrentSkin).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
+    }
+
+    public void SaveData() {
+        GlobalData.SerializeAll();
     }
 
     public void SelectRocketOrUnlockIt() {
-        //TODO the unlock part
-
+        float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+        if (RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.GetComponent<RocketProperties>().PointsToUnlock > usersScore) {
+            MessageForUnlock.text = "Δεν εχεις αρκετούς πόντους για αυτό το σκάφος";
+            return;
+        }
+        MessageForUnlock.text = "Αυτό είναι το νέο σου σκάφος!";
         GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).SkinSelected = CurrentSkin;
     }
 
@@ -148,17 +161,19 @@ public class CanvasManager : MonoBehaviour
 
             RocketProperties rockProp = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.GetComponent<RocketProperties>();
             float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
-            if ((rockProp.PointsToUnlock < usersScore)) {
+            ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": "+rockProp.PointsToUnlock;
+            MessageForUnlock.text = "";
+            //if ((rockProp.PointsToUnlock < usersScore)) {
                 RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
                 RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.SetActive(true);
-
+                
                 RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
                 RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.SetActive(true);
 
                 CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.name;
                 CurrentSkinIndexofIndex++;
                 return;
-            }
+            //}
 
         }
         RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
@@ -169,14 +184,17 @@ public class CanvasManager : MonoBehaviour
 
         CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[0]).gameObject.name;
         CurrentSkinIndexofIndex = 0;
+        RocketProperties rockProp2 = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.GetComponent<RocketProperties>();
+        ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": " + rockProp2.PointsToUnlock;
     }
 
     public void PreviousSkin() {
         if (CurrentSkinIndexofIndex > 0) {
 
             RocketProperties rockProp = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.GetComponent<RocketProperties>();
+            ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": " + rockProp.PointsToUnlock;
             float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
-            if ((rockProp.PointsToUnlock < usersScore)) {
+            //if ((rockProp.PointsToUnlock < usersScore)) {
                 RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
                 RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.SetActive(true);
 
@@ -186,25 +204,27 @@ public class CanvasManager : MonoBehaviour
                 CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.name;
                 CurrentSkinIndexofIndex--;
                 return;
-            }
+            //}
         }
         RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
         RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
         int i = 1;
-        float point = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
-        float playerpoints = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
-        while (point > playerpoints) {
-            if (i == rocketsIndexList.Count) {
-                break;
-            }
-            i++;
-            point = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
-        }
+        //float point = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
+        //float playerpoints = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+        //while (point > playerpoints) {
+        //    if (i == rocketsIndexList.Count) {
+        //        break;
+        //    }
+        //    i++;
+        //    point = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
+        //}
         RocketParentInGame.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.SetActive(true);
         RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.SetActive(true);
 
         CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.name;
         CurrentSkinIndexofIndex = rocketsIndexList.Count - i;
+        RocketProperties rockProp2 = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.GetComponent<RocketProperties>();
+        ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": " + rockProp2.PointsToUnlock;
 
     }
 

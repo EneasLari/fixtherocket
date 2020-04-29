@@ -65,13 +65,30 @@ public class EquationSpawner : MonoBehaviour {
             return;
         }
 
-        if (calculationsFinished > 1) {
+        if (calculationsFinished >=1 ) {
             if ((getMathProblems && MathematicalProblems.MathProblems[CalcListIndex-1].Answers[CorrectAnswer].Equals(clicked) )) {
+                //we put that here so if the counter is 1 and the aswer is correct we go out of calc play
+                if (calculationsFinished == 1) {
+                    FlipCounterState();//stop at the end
+                    TotalTimeForResponses = timerInSeconds;
+                    GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score += score;
+                    GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score += calculationsToFinish - (TotalTimeForResponses / estimatedTimePerCalc);
+                    score += calculationsToFinish - (TotalTimeForResponses / estimatedTimePerCalc); ;
+                    ScoreText.text = score.ToString();
+                    if (CalculationGamePanel != null) {
+                        CalculationGamePanel.SetActive(false);
+                    }
+                    if (LaunchTheRocketPanel != null) {
+                        LaunchTheRocketPanel.SetActive(true);
+                    }
+                }
+
                 resultTextA.text = "";
                 resultTextB.text = "";
                 CalculationText.text = CalculationText.text +" "+ clicked;
                 StartCoroutine(getCalculation(1));
                 calculationsFinished--;
+                print("MIOSI");
                 calculationsFinishedText.text = calculationsFinished.ToString();
                 score += CalcListIndex;
                 ScoreText.text = score.ToString();
