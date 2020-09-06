@@ -27705,6 +27705,11 @@ PrefabInstance:
       propertyPath: RocketSfxAudioSource
       value: 
       objectReference: {fileID: 8296172668755951558}
+    - target: {fileID: 2882783705845181114, guid: dbec29c5d7231c64aba6dd4336a39ae3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3364368531057426427, guid: dbec29c5d7231c64aba6dd4336a39ae3,
         type: 3}
       propertyPath: MainCamera
