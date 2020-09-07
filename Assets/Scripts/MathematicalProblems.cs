@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.UserSystem.GlobalData;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,12 @@ public class MathematicalProblems : MonoBehaviour
 {
     public static List<MathProblem> MathProblems = new List<MathProblem>();
     public GameObject SelectChaptersGameObject;
+    
 
     public void BindToggles() {
         foreach (Transform child in SelectChaptersGameObject.transform) {
             foreach (Transform grandchild in child) {
-                print(child.gameObject.name+" dsfd");
+                //print(child.gameObject.name+" dsfd");
                 Toggle tog = grandchild.gameObject.GetComponent<Toggle>();
                 if (tog != null) {
                     InitializeToglesByName(tog);
@@ -26,7 +28,7 @@ public class MathematicalProblems : MonoBehaviour
     }
 
     public void BindTogglesWithProblems() {
-        print(gameObject.name);
+        //print(gameObject.name);
         foreach (Transform child in SelectChaptersGameObject.transform) {
             foreach (Transform grandchild in child) {
                 Toggle tog = grandchild.GetComponent<Toggle>();
@@ -131,7 +133,7 @@ public class MathematicalProblems : MonoBehaviour
         correctindex = 0;
         answers = new string[] { "23" ,"32" };
         MathProblems.Add(new MathProblem(problem, answers, correctindex));
-        print(MathProblems.Count);
+        //print(MathProblems.Count);
     }
 
 

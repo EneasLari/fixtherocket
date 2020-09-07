@@ -16,6 +16,7 @@ public class EquationSpawner : MonoBehaviour {
     public GameObject LaunchTheRocketPanel;
     public GameObject MainMenuPanel;
     public GameObject CalculationGamePanel;
+    public WebRequests sender;
 
     public Text resultTextA;
     public Text resultTextB;
@@ -68,6 +69,7 @@ public class EquationSpawner : MonoBehaviour {
         if (calculationsFinished >=1 ) {
             if ((getMathProblems && MathematicalProblems.MathProblems[CalcListIndex-1].Answers[CorrectAnswer].Equals(clicked) )) {
                 //we put that here so if the counter is 1 and the aswer is correct we go out of calc play
+                sender.SendDATA(MathematicalProblems.MathProblems[CalcListIndex - 1].Problem, clicked+" time:"+timerInSeconds);
                 if (calculationsFinished == 1) {
                     FlipCounterState();//stop at the end
                     TotalTimeForResponses = timerInSeconds;
