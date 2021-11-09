@@ -24,58 +24,100 @@ public class CanvasManager : MonoBehaviour
     public GameObject RocketsCollection;
     public GameObject RocketParent;
     public GameObject RocketParentInGame;
-    private List<int> rocketsIndexList;
-    private string CurrentSkin = null;
-    private int CurrentSkinIndexofIndex = -1;
+    public GameObject ChapterSelection;
     public static PanelState panelState;
     public GameObject MainMenuPanel;
     public GameObject CalculationGamePanel;
+    public SerializationType SerializationType;
 
-    private void Awake() {
-        GlobalData.SerialType = SerializationType.Binary;
+    private List<int> rocketsIndexList;
+    private string CurrentSkin = null;
+    private int CurrentSkinIndexofIndex = -1;
+    private User currentUser;
+
+
+
+    #region INITIALIZATION
+    private void Awake()
+    {
+        GlobalData.SerialType = SerializationType;
+        currentUser = GlobalData.UsersManager.GetUser(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType);
     }
-
     void Start() {
         
         Initialize();
         SkinSelectionPanel.SetActive(false);
         RocketsCollection.SetActive(false);
         if (panelState == PanelState.InGameMenu) {
-            print("INGAMEMENU");
             MainMenuPanel.SetActive(false);
             CalculationGamePanel.SetActive(true);
             panelState = PanelState.InMainMenu;
         }
         CurrentSkinInitilization();
-        YourScore_UnlockPanel.text = YourScore_UnlockPanel.text+ GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser,GlobalData.SerialType).Score.ToString();
+        YourScore_UnlockPanel.text = YourScore_UnlockPanel.text+ currentUser.Score.ToString();
     }
 
-    public void CurrentSkinInitilization() {
-        if (rocketsIndexList==null || rocketsIndexList.Count==0) {
+    private void Initialize()
+    {
+        InitializeUserDropDown();
+        UpdateSelectedUserInDropDown();
+        BindToggles();
+        BindTogglesWithProblems();
+        ScoreText.text = currentUser.Score.ToString();
+        LoggenInUser.text = GlobalData.UsersManager.LoggedInUser;
+    }
+
+    private void InitializeUserDropDown()
+    {
+        if (UserDropDown.options.Count != 0)
+        {
+            return;
+        }
+        Dropdown.OptionData optiondata;
+        List<string> users = GlobalData.UsersManager.UsersNames;
+        foreach (string user in users)
+        {
+            optiondata = new Dropdown.OptionData();
+            optiondata.text = user;
+            UserDropDown.options.Add(optiondata);
+        }
+    }
+
+    private void CurrentSkinInitilization()
+    {
+        if (rocketsIndexList == null || rocketsIndexList.Count == 0)
+        {
             rocketsIndexList = new List<int>();
             LoadSkinList();
         }
-        Transform temptra = RocketParent.transform.Find(GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).SkinSelected);
+        Transform temptra = RocketParent.transform.Find(currentUser.SkinSelected);
         GameObject temp = null;
-        if (temptra != null) {
+        if (temptra != null)
+        {
             temp = temptra.gameObject;
         }
-        if (temp != null) {
+        if (temp != null)
+        {
             CurrentSkin = temp.name;
             int i = 0;
-            foreach (Transform gm in RocketParent.transform) {
-                if (gm.gameObject.name.Equals(CurrentSkin)) {
+            foreach (Transform gm in RocketParent.transform)
+            {
+                if (gm.gameObject.name.Equals(CurrentSkin))
+                {
                     CurrentSkinIndexofIndex = rocketsIndexList.FindIndex(x => x == i);
                     //print(rocketsIndexList[CurrentSkinIndexofIndex]);
-                } 
+                }
                 i++;
             }
-        } else {
+        }
+        else
+        {
             CurrentSkin = RocketParent.transform.GetChild(rocketsIndexList[0]).name;
             CurrentSkinIndexofIndex = 0;
-            GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).SkinSelected = CurrentSkin;
+            currentUser.SkinSelected = CurrentSkin;
         }
-        for(int j = 0;j < RocketParent.transform.childCount;j++) {
+        for (int j = 0; j < RocketParent.transform.childCount; j++)
+        {
             RocketParent.transform.GetChild(j).gameObject.SetActive(false);
             RocketParentInGame.transform.GetChild(j).gameObject.SetActive(false);
         }
@@ -84,43 +126,142 @@ public class CanvasManager : MonoBehaviour
         ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": " + RocketParent.transform.Find(CurrentSkin).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
     }
 
+    #endregion
+
+
+
+    #region CHAPTERS SELECTION
+    public void BindToggles()
+    {
+        foreach (Transform child in ChapterSelection.transform)
+        {
+            foreach (Transform grandchild in child)
+            {
+                //print(child.gameObject.name+" dsfd");
+                Toggle tog = grandchild.gameObject.GetComponent<Toggle>();
+                if (tog != null)
+                {
+                    InitializeToglesByName(tog);
+                    tog.onValueChanged.AddListener(delegate { TogleOnValueChange(tog); });
+                }
+
+            }
+        }
+    }
+
+    public void TogleOnValueChange(Toggle gameobjtogle)
+    {
+        if (gameobjtogle.gameObject.name.Equals("taksi3enotita1"))
+        {
+            currentUser.Chapters.taksi3enotita1 = gameobjtogle.isOn;
+        }
+        else if (gameobjtogle.gameObject.name.Equals("taksi3enotita2"))
+        {
+            currentUser.Chapters.taksi3enotita2 = gameobjtogle.isOn;
+        }
+        else if (gameobjtogle.gameObject.name.Equals("taksi3enotita3"))
+        {
+            currentUser.Chapters.taksi3enotita3 = gameobjtogle.isOn;
+        }
+        else if (gameobjtogle.gameObject.name.Equals("taksi3enotita4"))
+        {
+            currentUser.Chapters.taksi3enotita4 = gameobjtogle.isOn;
+        }
+    }
+
+    public void BindTogglesWithProblems()
+    {
+        //print(gameObject.name);
+        foreach (Transform child in ChapterSelection.transform)
+        {
+            foreach (Transform grandchild in child)
+            {
+                Toggle tog = grandchild.GetComponent<Toggle>();
+                if (tog != null)
+                {
+                    AddTaksiEnotita(tog.isOn, tog.gameObject.name);
+                }
+
+            }
+
+        }
+
+    }
+
+    public void InitializeToglesByName(Toggle gameobjtogle)
+    {
+        if (gameobjtogle.gameObject.name.Equals("taksi3enotita1"))
+        {
+            gameobjtogle.isOn = currentUser.Chapters.taksi3enotita1;
+        }
+        else if (gameobjtogle.gameObject.name.Equals("taksi3enotita2"))
+        {
+            gameobjtogle.isOn = currentUser.Chapters.taksi3enotita2;
+        }
+        else if (gameobjtogle.gameObject.name.Equals("taksi3enotita3"))
+        {
+            gameobjtogle.isOn = currentUser.Chapters.taksi3enotita3;
+        }
+        else if (gameobjtogle.gameObject.name.Equals("taksi3enotita4"))
+        {
+            gameobjtogle.isOn = currentUser.Chapters.taksi3enotita4;
+        }
+    }
+    public void AddTaksiEnotita(bool canadd, string togglename)
+    {
+        if (canadd && togglename.Equals("taksi3enotita1"))
+        {
+            //Μαθηματικά Προβλήματα Α Δημοτικού Κεφ.34 Αριθμοί μέχρι το 100
+            string problem = "35 ... 37 Ποιος είναι ο αριθμός ανάμεσα;";
+            string[] answers = { "34", "36" };
+            int correctindex = 1;
+            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
+
+            problem = "Πόσο κάνει 20+10+5;";
+            correctindex = 0;
+            answers = new string[] { "35", "25" };
+            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
+
+            //Προβλήματα Α δημοτικού Κεφ.39 Μονάδες Δεκάδες
+            problem = "Ποιος αριθμός έχει 4 Δεκάδες (Δ) και 3 Μονάδες (Μ);";
+            correctindex = 1;
+            answers = new string[] { "34", "43" };
+            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
+
+            problem = "Ποιος αριθμός έχει 5 Δεκάδες (Δ) και 7 Μονάδες (Μ);";
+            correctindex = 1;
+            answers = new string[] { "75", "57" };
+            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
+
+            problem = "Ποιος αριθμός έχει 7 Μονάδες (Μ) και 4 Δεκάδες (Δ);";
+            correctindex = 0;
+            answers = new string[] { "74", "47" };
+            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
+            print(MathematicalProblems.MathProblems.Count);
+        }
+    }
+    #endregion
+
+
     public void SaveData() {
         GlobalData.SerializeAll();
     }
 
     public void SelectRocketOrUnlockIt() {
-        float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+        float usersScore = currentUser.Score;
         if (RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.GetComponent<RocketProperties>().PointsToUnlock > usersScore) {
             MessageForUnlock.text = "Δεν εχεις αρκετούς πόντους για αυτό το σκάφος";
             return;
         }
         MessageForUnlock.text = "Αυτό είναι το νέο σου σκάφος!";
-        GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).SkinSelected = CurrentSkin;
+        currentUser.SkinSelected = CurrentSkin;
     }
 
     public void EnableCameraPathFollower() {
         MainCamera.GetComponent<CameraPathFollower>().enabled = true;
     }
 
-    public void Initialize() {
-        GlobalData.SerialType = SerializationType.Binary;
-        InitializeUserDropDown();
-        UpdateSelectedUserInDropDown();
-        ScoreText.text = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score.ToString();
-        LoggenInUser.text = GlobalData.UsersManager.LoggedInUser;
-    }
-    public void InitializeUserDropDown() {
-        if (UserDropDown.options.Count != 0) {
-            return;
-        }
-        Dropdown.OptionData optiondata;
-        List<string> users = GlobalData.UsersManager.UsersNames;
-        foreach (string user in users) {
-            optiondata = new Dropdown.OptionData();
-            optiondata.text = user;
-            UserDropDown.options.Add(optiondata);
-        }
-    }
+
 
     public void UpdateSelectedUserInDropDown() {
         // returns a list of the text properties of the options
@@ -132,20 +273,18 @@ public class CanvasManager : MonoBehaviour
 
     public void OnUserChanged() {
         GlobalData.UsersManager.LoggedInUser = GlobalData.UsersManager.UsersNames.Find(x => x.Equals(UserDropDown.options[UserDropDown.value].text));
-        ScoreText.text = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser,GlobalData.SerialType).Score.ToString();
+        ScoreText.text = GlobalData.UsersManager.GetUser(GlobalData.UsersManager.LoggedInUser,GlobalData.SerialType).Score.ToString();
         LoggenInUser.text = GlobalData.UsersManager.LoggedInUser;
     }
 
     public void OnAddNewUser() {
         bool added = GlobalData.UsersManager.AddNewUser(NewUserNameInput.text, GlobalData.SerialType);
         if (!added) {
-            print("USER NOT ADED");
             return;
         }
 
         string newuseradded = GlobalData.UsersManager.UsersNames.Find(x => x.Equals(NewUserNameInput.text));
         if (newuseradded == null) {
-            print("PROBLEMAS");
             return;
         }
         NewUserNameInput.text = "";
@@ -160,7 +299,7 @@ public class CanvasManager : MonoBehaviour
         if (CurrentSkinIndexofIndex < (rocketsIndexList.Count - 1)) {
 
             RocketProperties rockProp = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex + 1]).gameObject.GetComponent<RocketProperties>();
-            float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+            float usersScore = currentUser.Score;
             ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": "+rockProp.PointsToUnlock;
             MessageForUnlock.text = "";
             //if ((rockProp.PointsToUnlock < usersScore)) {
@@ -193,7 +332,7 @@ public class CanvasManager : MonoBehaviour
 
             RocketProperties rockProp = RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.GetComponent<RocketProperties>();
             ScoreText_UnlockPanel.text = ScoreText_UnlockPanel.text.Split(':')[0] + ": " + rockProp.PointsToUnlock;
-            float usersScore = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+            float usersScore = currentUser.Score;
             //if ((rockProp.PointsToUnlock < usersScore)) {
                 RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
                 RocketParent.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex - 1]).gameObject.SetActive(true);
@@ -210,7 +349,7 @@ public class CanvasManager : MonoBehaviour
         RocketParentInGame.transform.GetChild(rocketsIndexList[CurrentSkinIndexofIndex]).gameObject.SetActive(false);
         int i = 1;
         //float point = RocketParent.transform.GetChild(rocketsIndexList[rocketsIndexList.Count - i]).gameObject.GetComponent<RocketProperties>().PointsToUnlock;
-        //float playerpoints = GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score;
+        //float playerpoints = currentUser.Score;
         //while (point > playerpoints) {
         //    if (i == rocketsIndexList.Count) {
         //        break;
@@ -242,7 +381,7 @@ public class CanvasManager : MonoBehaviour
     }
 
     public void RefreshDetails() {
-        ScoreText.text = "Πόντοι :" + GlobalData.UsersManager.GetUserDetails(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType).Score + "";
+        ScoreText.text = "Πόντοι :" + currentUser.Score + "";
     }
 
     // Update is called once per frame

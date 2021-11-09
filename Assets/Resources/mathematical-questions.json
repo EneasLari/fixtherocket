@@ -1,0 +1,17 @@
+﻿{
+  "taksi1enotita1": [
+    {
+      "Problem": "35 ... 37 Ποιος είναι ο αριθμός ανάμεσα;",
+      "Answers": [ "34", "36" ],
+      "CorrectAnswerIndex": 1
+    }
+  ],
+  "taksi1enotita2": [
+    {
+      "Problem": "Ποις εχει την μεγαλυτερη ψωλη?",
+      "Answers": [ "Εσυ", "Εγω" ],
+      "CorrectAnswerIndex": 1
+    }
+  ]
+
+}

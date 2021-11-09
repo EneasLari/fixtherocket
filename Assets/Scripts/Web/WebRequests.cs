@@ -1,20 +1,32 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.Networking;
 
-namespace Assets.Scripts.Web {
-    public class WebRequests {
+public class WebRequests : MonoBehaviour
+{
+    void Start() {
+        
+    }
 
-        public static async void SendSerialnumberasParameter(string uri,string serial) {
-            var client = new HttpClient();
-            var URL = uri+"?serial="+ serial;
-            //var url = "http://localhost:3000/api/serialnumber?var=" + serial;
-            var result = await client.GetAsync( URL);
+    public void SendDATA(string fieldname, string field) {
+        StartCoroutine(UploadData(fieldname, field));
+    }
 
-            Console.WriteLine(result);
+
+    IEnumerator UploadData(string fieldname,string field) {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        MultipartFormDataSection data = new MultipartFormDataSection(fieldname, field);
+        formData.Add(data);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000/unitypost", formData);
+        Debug.Log(formData);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        } else {
+            Debug.Log("Form upload complete!");
         }
     }
 }

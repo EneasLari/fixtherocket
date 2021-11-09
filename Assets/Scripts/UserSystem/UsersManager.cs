@@ -27,7 +27,7 @@ namespace Assets.Scripts.PersistentData {
     public class UsersManager {
         private List<string> _usersNames = null;
         [NonSerialized]
-        private List<UserDetails> _usersDetails = null;
+        private List<User> _usersDetails = null;
         private string _loggedInUser = null;
 
         public List<string> UsersNames {
@@ -39,40 +39,40 @@ namespace Assets.Scripts.PersistentData {
             }
         }
 
-        private List<UserDetails> UsersDetails {
+        private List<User> UsersDetails {
             get {
                 if (_usersDetails == null) {
-                    _usersDetails = new List<UserDetails>();
+                    _usersDetails = new List<User>();
                 }
                 return _usersDetails;
             }
         }
 
-        public UserDetails GetUserDetails(string filename, SerializationType type) {
+        public User GetUser(string filename, SerializationType type) {
             if (UsersNames.Find(x => x.Equals(filename)) == null) {
                 return null;
             }
             string filepath = System.IO.Path.Combine(UsersManagerPath, filename);
-            UserDetails userDetails = UsersDetails.Find(x => x.Name.Equals(filename));
-            if (userDetails == null) {
+            User User = UsersDetails.Find(x => x.Name.Equals(filename));
+            if (User == null) {
                 if (type == SerializationType.Binary) {
-                    userDetails = UserDetails.GetUserDetailsFromBinary(filename);
+                    User = User.GetUserFromBinary(filename);
                 }
                 if (type == SerializationType.Xml) {
-                    userDetails = UserDetails.GetUserDetailsFromXml(filename);
+                    User = User.GetUserFromXml(filename);
                 }
-                UsersDetails.Add(userDetails);
+                UsersDetails.Add(User);
             }
-            if (!userDetails.Name.Equals(filename)) {
-                userDetails.Name = filename;
-                UsersDetails.Add(userDetails);
+            if (!User.Name.Equals(filename)) {
+                User.Name = filename;
+                UsersDetails.Add(User);
             }
-            return userDetails;
+            return User;
         }
         public string LoggedInUser {
             get {
                 if (_loggedInUser == null) {
-                    _loggedInUser = (new UserDetails()).Name;// UserDetails
+                    _loggedInUser = (new User()).Name;// User
                 }
                 return _loggedInUser;
             }
@@ -82,7 +82,7 @@ namespace Assets.Scripts.PersistentData {
         }
 
         private void SaveDetails(SerializationType type) {
-            foreach (UserDetails details in UsersDetails) {
+            foreach (User details in UsersDetails) {
                 if (type == SerializationType.Binary) {
                     details.SerializeToBinary(details.Name);
                 }
@@ -96,10 +96,10 @@ namespace Assets.Scripts.PersistentData {
             bool added = false;
             string name = UsersNames.Find(x => x.Equals(username));
             if (name == null) {
-                UserDetails newuserdetails = new UserDetails();
+                User newUser = new User();
                 UsersNames.Add(username);
-                newuserdetails.Name = username;
-                UsersDetails.Add(newuserdetails);
+                newUser.Name = username;
+                UsersDetails.Add(newUser);
                 this.LoggedInUser = username;
                 added = true;
             }
@@ -169,7 +169,7 @@ namespace Assets.Scripts.PersistentData {
                 }
 
             } catch (Exception ex) {
-                Console.WriteLine("" + ex, "Error Serializing UserDetails");//TODO
+                Console.WriteLine("" + ex, "Error Serializing User");//TODO
             }
         }
 
@@ -195,7 +195,7 @@ namespace Assets.Scripts.PersistentData {
             UsersManager UsersManager = new UsersManager();
             UsersManager.DeserializefromXml();
             if (UsersManager.UsersNames.Count == 0) {
-                UsersManager.UsersNames.Add((new UserDetails()).Name);
+                UsersManager.UsersNames.Add((new User()).Name);
             }
             return UsersManager;
         }
@@ -204,7 +204,7 @@ namespace Assets.Scripts.PersistentData {
             UsersManager UsersManager = new UsersManager();
             UsersManager.DeserializefromBinary();
             if (UsersManager.UsersNames.Count == 0) {
-                UsersManager.UsersNames.Add((new UserDetails()).Name);
+                UsersManager.UsersNames.Add((new User()).Name);
             }
             return UsersManager;
         }

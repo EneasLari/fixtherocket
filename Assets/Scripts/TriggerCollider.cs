@@ -18,7 +18,6 @@ public class TriggerCollider : MonoBehaviour
 
 
     private void Start() {
-        GlobalData.SerialType = SerializationType.Binary;
         ExplosionAudioSource=gameObject.GetComponent<AudioSource>();
         ExplosionAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
         ExplosionAudioSource.mute = GlobalData.GeneralSettings.MuteSounds;

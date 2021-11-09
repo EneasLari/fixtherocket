@@ -30,7 +30,7 @@ namespace Assets.Scripts.PersistentData {
     }
 
     [Serializable]
-    public class UserDetails {
+    public class User {
         private string _name=null;
         private string _password = null;
         private int _score=0;
@@ -178,8 +178,8 @@ namespace Assets.Scripts.PersistentData {
             }
             return 0;
         }
-        [XmlElement(ElementName = "UserDetails")]
-        public string UserDetailsPath {
+        [XmlElement(ElementName = "User")]
+        public string UserPath {
             get {
                 return PathVariables.USERSMANAGERPATH;
             }
@@ -188,9 +188,9 @@ namespace Assets.Scripts.PersistentData {
         //save data(variables of a class) to a xml
         public void SerializeToBinary(string filenamestr) {
             try {
-                if (!System.IO.Directory.Exists(UserDetailsPath))
-                    System.IO.Directory.CreateDirectory(UserDetailsPath);
-                string filename = Path.Combine(UserDetailsPath, filenamestr);
+                if (!System.IO.Directory.Exists(UserPath))
+                    System.IO.Directory.CreateDirectory(UserPath);
+                string filename = Path.Combine(UserPath, filenamestr);
                 BinaryFormatter serializer = new BinaryFormatter();
                 using (Stream writer = new FileStream(filename, FileMode.Create, FileAccess.Write)) {
                     serializer.Serialize(writer, this);
@@ -198,33 +198,33 @@ namespace Assets.Scripts.PersistentData {
                 
             } catch (Exception ex) {
 
-                Console.WriteLine("" + ex, "Error Serializing UserDetails");//TODO
+                Console.WriteLine("" + ex, "Error Serializing User");//TODO
             }
         }
 
         //retrieve data from xml to initilize object/s
         private void DeserializeFromBinary(string filenamestr) {
-            string filename = System.IO.Path.Combine(UserDetailsPath, filenamestr);
+            string filename = System.IO.Path.Combine(UserPath, filenamestr);
             if (!System.IO.File.Exists(filename))
                 return;
-            UserDetails userdetails = new UserDetails();
+            User user = new User();
             BinaryFormatter serializer = new BinaryFormatter();
             using (System.IO.FileStream fileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open)) {
-                userdetails = (UserDetails)serializer.Deserialize(fileStream);
-                this._name = userdetails._name;
-                this._password = userdetails._password;
-                this._score = userdetails._score;
-                this._highestscore = userdetails._highestscore;
-                this._coins = userdetails._coins;
-                this._dateCreated = userdetails._dateCreated;
-                this._collectedWordsList = userdetails._collectedWordsList;
-                this._savedWordsList = userdetails._savedWordsList;
-                this._sceneSelected = userdetails._sceneSelected;
-                this._timePlaying = userdetails._timePlaying;
-                this._scenesUnlocked = userdetails._scenesUnlocked;
-                this._skinSelected = userdetails._skinSelected;
-                this._difficultySelected = userdetails._difficultySelected;
-                this._chapters = userdetails._chapters;
+                user = (User)serializer.Deserialize(fileStream);
+                this._name = user._name;
+                this._password = user._password;
+                this._score = user._score;
+                this._highestscore = user._highestscore;
+                this._coins = user._coins;
+                this._dateCreated = user._dateCreated;
+                this._collectedWordsList = user._collectedWordsList;
+                this._savedWordsList = user._savedWordsList;
+                this._sceneSelected = user._sceneSelected;
+                this._timePlaying = user._timePlaying;
+                this._scenesUnlocked = user._scenesUnlocked;
+                this._skinSelected = user._skinSelected;
+                this._difficultySelected = user._difficultySelected;
+                this._chapters = user._chapters;
             }
             
         }
@@ -233,41 +233,43 @@ namespace Assets.Scripts.PersistentData {
         //save data(variables of a class) to a xml
         public void SerializeToXml(string filenamestr) {
             try {
-                if (!System.IO.Directory.Exists(UserDetailsPath))
-                    System.IO.Directory.CreateDirectory(UserDetailsPath);
-                string filename = Path.Combine(UserDetailsPath, filenamestr);
-                XmlSerializer serializer = new XmlSerializer(typeof(UserDetails));
+                if (!System.IO.Directory.Exists(UserPath))
+                    System.IO.Directory.CreateDirectory(UserPath);
+                string filename = Path.Combine(UserPath, filenamestr);
+                XmlSerializer serializer = new XmlSerializer(typeof(User));
                 using (TextWriter writer = new StreamWriter(filename)) {
                     serializer.Serialize(writer, this);
                 }
 
             } catch (Exception ex) {
 
-                Console.WriteLine("" + ex, "Error Serializing UserDetails");//TODO
+                Console.WriteLine("" + ex, "Error Serializing User");//TODO
             }
         }
 
         //retrieve data from xml to initilize object/s
         private void DeserializeFromXml(string filenamestr) {
-            string filename = System.IO.Path.Combine(UserDetailsPath, filenamestr);
+            string filename = System.IO.Path.Combine(UserPath, filenamestr);
             if (!System.IO.File.Exists(filename))
                 return;
-            UserDetails userdetails = new UserDetails();
-            XmlSerializer serializer = new XmlSerializer(typeof(UserDetails));
+            User user = new User();
+            XmlSerializer serializer = new XmlSerializer(typeof(User));
             using (System.IO.FileStream fileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open)) {
-                userdetails = (UserDetails)serializer.Deserialize(fileStream);
-                this._name = userdetails._name;
-                this._password = userdetails._password;
-                this._score = userdetails._score;
-                this._highestscore = userdetails._highestscore;
-                this._coins = userdetails._coins;
-                this._dateCreated = userdetails._dateCreated;
-                this._collectedWordsList = userdetails._collectedWordsList;
-                this._savedWordsList = userdetails._savedWordsList;
-                this._sceneSelected = userdetails._sceneSelected;
-                this._timePlaying = userdetails._timePlaying;
-                this._scenesUnlocked = userdetails._scenesUnlocked;
-                this._skinsUnlocked = userdetails._skinsUnlocked;
+                user = (User)serializer.Deserialize(fileStream);
+                this._name = user._name;
+                this._password = user._password;
+                this._score = user._score;
+                this._highestscore = user._highestscore;
+                this._coins = user._coins;
+                this._dateCreated = user._dateCreated;
+                this._collectedWordsList = user._collectedWordsList;
+                this._savedWordsList = user._savedWordsList;
+                this._sceneSelected = user._sceneSelected;
+                this._timePlaying = user._timePlaying;
+                this._scenesUnlocked = user._scenesUnlocked;
+                this._skinSelected = user._skinSelected;
+                this._difficultySelected = user._difficultySelected;
+                this._chapters = user._chapters;
             }
 
         }
@@ -275,16 +277,18 @@ namespace Assets.Scripts.PersistentData {
         /// <summary>
         /// Get an static <c>UsersManager</c> object from a xml file(Deserialize)
         /// </summary>
-        public static UserDetails GetUserDetailsFromXml(string filenamestr) {
-            UserDetails userdetails = new UserDetails();
-            userdetails.DeserializeFromXml(filenamestr);
-            return userdetails;
+        public static User GetUserFromXml(string filenamestr) {
+            User user = new User();
+            user.DeserializeFromXml(filenamestr);
+            return user;
         }
-        public static UserDetails GetUserDetailsFromBinary(string filenamestr) {
-            UserDetails userdetails = new UserDetails();
-            userdetails.DeserializeFromBinary(filenamestr);
-            return userdetails;
+        public static User GetUserFromBinary(string filenamestr) {
+            User user = new User();
+            user.DeserializeFromBinary(filenamestr);
+            return user;
         }
 
     }
+
+
 }
