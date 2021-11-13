@@ -333,7 +333,7 @@ public class EquationSpawner : MonoBehaviour
         resultTextB.text = resultValueB.ToString();
         QuestionText.text = varvalA.ToString() + "÷" + varvalB.ToString() + "=";
     }
-
+    
     private void getCalculationFromFile()
     {
         int resultValueA;
