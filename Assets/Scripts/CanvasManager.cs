@@ -5,20 +5,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CanvasManager : MonoBehaviour
+public class CanvasManager : MonoBehaviour 
 {
 
-    public Dropdown UserDropDown;
-    public InputField NewUserNameInput;
-    public Text ScoreText;
-    public Text LoggenInUser;
-    public Text ScoreText_UnlockPanel;
-    public Text YourScore_UnlockPanel;
-    public Text MessageForUnlock;
+    public TMP_Dropdown UserDropDown;
+    public TMP_InputField NewUserNameInput;
+    public TMP_Text ScoreText;
+    public TMP_Text LoggenInUser;
+    public TMP_Text ScoreText_UnlockPanel;
+    public TMP_Text YourScore_UnlockPanel;
+    public TMP_Text MessageForUnlock;
     public GameObject MainCamera;
     public GameObject SkinSelectionPanel;
     public GameObject RocketsCollection;
@@ -73,17 +74,17 @@ public class CanvasManager : MonoBehaviour
         {
             return;
         }
-        Dropdown.OptionData optiondata;
+        TMP_Dropdown.OptionData optiondata;
         List<string> users = GlobalData.UsersManager.UsersNames;
         foreach (string user in users)
         {
-            optiondata = new Dropdown.OptionData();
+            optiondata = new TMP_Dropdown.OptionData();
             optiondata.text = user;
             UserDropDown.options.Add(optiondata);
         }
     }
 
-    private void CurrentSkinInitilization()
+    public void CurrentSkinInitilization()
     {
         if (rocketsIndexList == null || rocketsIndexList.Count == 0)
         {
@@ -273,6 +274,7 @@ public class CanvasManager : MonoBehaviour
 
     public void OnUserChanged() {
         GlobalData.UsersManager.LoggedInUser = GlobalData.UsersManager.UsersNames.Find(x => x.Equals(UserDropDown.options[UserDropDown.value].text));
+        currentUser = GlobalData.UsersManager.GetUser(GlobalData.UsersManager.LoggedInUser, GlobalData.SerialType);
         ScoreText.text = GlobalData.UsersManager.GetUser(GlobalData.UsersManager.LoggedInUser,GlobalData.SerialType).Score.ToString();
         LoggenInUser.text = GlobalData.UsersManager.LoggedInUser;
     }
