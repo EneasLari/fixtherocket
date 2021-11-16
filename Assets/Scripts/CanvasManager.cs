@@ -25,7 +25,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject RocketsCollection;
     public GameObject RocketParent;
     public GameObject RocketParentInGame;
-    public GameObject ChapterSelection;
+    public GameObject[] ChapterSelectionToggles;
     public static PanelState panelState;
     public GameObject MainMenuPanel;
     public GameObject CalculationGamePanel;
@@ -134,12 +134,10 @@ public class CanvasManager : MonoBehaviour
     #region CHAPTERS SELECTION
     public void BindToggles()
     {
-        foreach (Transform child in ChapterSelection.transform)
-        {
-            foreach (Transform grandchild in child)
+            foreach (GameObject toggle in ChapterSelectionToggles)
             {
                 //print(child.gameObject.name+" dsfd");
-                Toggle tog = grandchild.gameObject.GetComponent<Toggle>();
+                Toggle tog = toggle.GetComponent<Toggle>();
                 if (tog != null)
                 {
                     InitializeToglesByName(tog);
@@ -147,7 +145,6 @@ public class CanvasManager : MonoBehaviour
                 }
 
             }
-        }
     }
 
     public void TogleOnValueChange(Toggle gameobjtogle)
@@ -173,16 +170,13 @@ public class CanvasManager : MonoBehaviour
     public void BindTogglesWithProblems()
     {
         //print(gameObject.name);
-        foreach (Transform child in ChapterSelection.transform)
+        foreach (GameObject toggle in ChapterSelectionToggles)
         {
-            foreach (Transform grandchild in child)
+            //print(child.gameObject.name+" dsfd");
+            Toggle tog = toggle.GetComponent<Toggle>();
+            if (tog != null)
             {
-                Toggle tog = grandchild.GetComponent<Toggle>();
-                if (tog != null)
-                {
-                    AddTaksiEnotita(tog.isOn, tog.gameObject.name);
-                }
-
+                AddTaksiEnotita(tog.isOn, tog.gameObject.name);
             }
 
         }
