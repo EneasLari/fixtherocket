@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.PersistentData;
+using UnityEngine;
 
 namespace PathCreation.PathFollower
 {
@@ -6,8 +7,6 @@ namespace PathCreation.PathFollower
     // Moves along a path at constant speed.
     // Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
     public class RocketPathFollower : MonoBehaviour {
-        public enum State { Alive, Dying, Transcending };
-        public enum RocketState { None, StartEngines, StartEnginesMove, StartMoving }
 
 
         public PathCreator pathCreator;
@@ -18,7 +17,6 @@ namespace PathCreation.PathFollower
         AudioSource audiosource;
         public GameObject FlameParticleSystem;
 
-        public static State GameState = State.Alive;
         public static RocketState rocketState=RocketState.None;
         void Start() {
             startingPosition = transform.position;

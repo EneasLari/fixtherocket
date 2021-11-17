@@ -3,6 +3,7 @@ using Assets.Scripts.UserSystem.GlobalData;
 using PathCreation;
 using PathCreation.Examples;
 using PathCreation.PathFollower;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,10 @@ public class TriggerCollider : MonoBehaviour
     public AudioClip ExplosionClip;
     public GameObject BeforeExplosion;
     public float ExplosionPower = 60f;
-    public GameObject OnLosePanel;
 
-
+    private Enums enums = new Enums();
     private void Start() {
-        ExplosionAudioSource=gameObject.GetComponent<AudioSource>();
+        ExplosionAudioSource =gameObject.GetComponent<AudioSource>();
         ExplosionAudioSource.volume = GlobalData.GeneralSettings.Mastervolume;
         ExplosionAudioSource.mute = GlobalData.GeneralSettings.MuteSounds;
     }
@@ -42,13 +42,13 @@ public class TriggerCollider : MonoBehaviour
                 Explode(parent);
                 collision.gameObject.transform.parent.gameObject.GetComponent<RocketPathFollower>().enabled = false;
                 ExplodePlayer(collision.gameObject.transform.parent.gameObject);
-                Invoke("LoadOnLosePanel", 2f);
+                Enums.CrashState = CrashState.Dead;
                 break;
             case "Fuel":
-                print("Hit the fan");
+                //print("Hit the fan");
                 break;
             default:
-                print("Hit Some Object");
+                //print("Hit Some Object");
                 break;
         }
     }
@@ -102,10 +102,6 @@ public class TriggerCollider : MonoBehaviour
             if (rb != null)
                 rb.AddExplosionForce(ExplosionPower*2, explosionPos, radius*2, 3.0F);
         }
-    }
-
-    public void LoadOnLosePanel() {
-        OnLosePanel.SetActive(true);
     }
 
     private void Update() {

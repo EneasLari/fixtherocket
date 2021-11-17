@@ -125,13 +125,13 @@ public class EquationSpawner : MonoBehaviour
 
     public void ReplayLevel()
     {
-        RocketPathFollower.rocketState = RocketPathFollower.RocketState.None;
+        RocketPathFollower.rocketState = RocketState.None;
         CanvasManager.panelState = PanelState.InGameMenu;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void MainLevel()
     {
-        RocketPathFollower.rocketState = RocketPathFollower.RocketState.None;
+        RocketPathFollower.rocketState = RocketState.None;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

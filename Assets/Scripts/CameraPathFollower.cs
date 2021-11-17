@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.PersistentData;
+using UnityEngine;
 
 
 namespace PathCreation.PathFollower
@@ -26,7 +27,7 @@ namespace PathCreation.PathFollower
         }
 
         void Update() {
-            if (RocketPathFollower.rocketState != RocketPathFollower.RocketState.None || pathCreator.Equals(PathToSkinSelection)) {
+            if (RocketPathFollower.rocketState != RocketState.None || pathCreator.Equals(PathToSkinSelection)) {
                 Transit();
             }
 
@@ -65,7 +66,7 @@ namespace PathCreation.PathFollower
                 gameObject.GetComponent<CameraPathFollower>().enabled = false;
                 //Player.GetComponent<RocketPathFollower>().enabled = true;
                 if (pathCreator.Equals(PathToRocketGame)) {
-                    RocketPathFollower.rocketState = RocketPathFollower.RocketState.StartMoving;
+                    RocketPathFollower.rocketState = RocketState.StartMoving;
                     gameObject.GetComponent<ThirdPersonCamera>().enabled = true;
                 }
 
