@@ -1,15 +1,112 @@
 ﻿{
   "taksi1enotita1": [
     {
-      "Problem": "35 ... 37 Ποιος είναι ο αριθμός ανάμεσα;",
-      "Answers": [ "34", "36" ],
+      "Problem": "Ένας αριθμός έχει 3 Μονάδες και 7 Δεκάδες. Ποιός αριθμός είναι;",
+      "Answers": [ "37", "73" ],
       "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "Πόσες δεκάδες έχει ο αριθμός 17;",
+      "Answers": [ "1", "7" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "34<43. Σωστό ή Λάθος;",
+      "Answers": [ "Σ", "Λ" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "Αν σε έναν αριθμό με 2 Δεκάδες και 9 Μονάδες προσθέσω 1 Μονάδα ακόμα ποιόν αριθμό θα έχω;",
+      "Answers": [ "30", "28" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "Ένας αριθμός έχει 2 Δεκάδες και 3 Μονάδες. Ποιός αριθμός είναι;",
+      "Answers": [ "23", "32" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "Πόσες Δεκάδες έχει ο αριθμός 38;",
+      "Answers": [ "3", "8" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "23>32. Σωστό ή Λάθος;",
+      "Answers": [ "Σ", "Λ" ],
+      "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "Προσθέτω μια (1) Δεκάδα στον αριθμό 16. Ποιον αριθμό έχω;",
+      "Answers": [ "36", "26" ],
+      "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "Ένας αριθμός έχει 6 Δεκάδες (Δ) και 1 Μονάδα (Μ). Ποιός αριθμός είναι;",
+      "Answers": [ "61", "16" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "Πόσες Μονάδες (Μ) έχει ο αριθμός 60;",
+      "Answers": [ "0", "6" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "35<35. Σωστό ή Λάθος;",
+      "Answers": [ "Σ", "Λ" ],
+      "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "Έχω τον αριθμό 28. Ποιά είναι η προηγούμενη δεκάδα;",
+      "Answers": [ "18", "27" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "Σε έναν αριθμό οι δεκάδες είναι 3 και οι μονάδες διπλάσιες. Ποιός αριθμός είναι;",
+      "Answers": [ "36", "39" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "Πόσες Δεκάδες έχει ο αριθμός 7;",
+      "Answers": [ "0", "7" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "26<31. Σωστό ή Λάθος;",
+      "Answers": [ "Σ", "Λ" ],
+      "CorrectAnswerIndex": 0
+    },
+    {
+      "Problem": "Έχω τον αριθμό 99. Ποιά είναι η προηγούμενη δεκάδα;",
+      "Answers": [ "89", "109" ],
+      "CorrectAnswerIndex": 0
     }
   ],
+
   "taksi1enotita2": [
+
     {
-      "Problem": "Ποις εχει την μεγαλυτερη ψωλη?",
-      "Answers": [ "Εσυ", "Εγω" ],
+      "Problem": "",
+      "Answers": [ "61", "16" ],
+      "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "",
+      "Answers": [ "61", "16" ],
+      "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "",
+      "Answers": [ "61", "16" ],
+      "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "",
+      "Answers": [ "61", "16" ],
+      "CorrectAnswerIndex": 1
+    },
+    {
+      "Problem": "",
+      "Answers": [ "61", "16" ],
       "CorrectAnswerIndex": 1
     }
   ]

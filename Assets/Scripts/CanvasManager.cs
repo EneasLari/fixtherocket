@@ -201,7 +201,7 @@ public class CanvasManager : MonoBehaviour
             Toggle tog = toggle.GetComponent<Toggle>();
             if (tog != null)
             {
-                AddTaksiEnotita(tog.isOn, tog.gameObject.name);
+                AllProblems.AddTaksiEnotita(tog.isOn, tog.gameObject.name);
             }
 
         }
@@ -227,39 +227,7 @@ public class CanvasManager : MonoBehaviour
             gameobjtogle.isOn = currentUser.Chapters.taksi3enotita4;
         }
     }
-    public void AddTaksiEnotita(bool canadd, string togglename)
-    {
-        if (canadd && togglename.Equals("taksi3enotita1"))
-        {
-            //Μαθηματικά Προβλήματα Α Δημοτικού Κεφ.34 Αριθμοί μέχρι το 100
-            string problem = "35 ... 37 Ποιος είναι ο αριθμός ανάμεσα;";
-            string[] answers = { "34", "36" };
-            int correctindex = 1;
-            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
 
-            problem = "Πόσο κάνει 20+10+5;";
-            correctindex = 0;
-            answers = new string[] { "35", "25" };
-            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
-
-            //Προβλήματα Α δημοτικού Κεφ.39 Μονάδες Δεκάδες
-            problem = "Ποιος αριθμός έχει 4 Δεκάδες (Δ) και 3 Μονάδες (Μ);";
-            correctindex = 1;
-            answers = new string[] { "34", "43" };
-            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
-
-            problem = "Ποιος αριθμός έχει 5 Δεκάδες (Δ) και 7 Μονάδες (Μ);";
-            correctindex = 1;
-            answers = new string[] { "75", "57" };
-            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
-
-            problem = "Ποιος αριθμός έχει 7 Μονάδες (Μ) και 4 Δεκάδες (Δ);";
-            correctindex = 0;
-            answers = new string[] { "74", "47" };
-            MathematicalProblems.MathProblems.Add(new MathematicalProblems.MathProblem(problem, answers, correctindex));
-            //print(MathematicalProblems.MathProblems.Count);
-        }
-    }
     #endregion
 
 
