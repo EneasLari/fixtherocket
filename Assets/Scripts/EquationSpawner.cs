@@ -20,13 +20,13 @@ public class EquationSpawner : MonoBehaviour
     public GameObject LaunchTheRocketPanel;
     public GameObject CalculationGamePanel;
 
-    public TMP_Text resultTextA;
-    public TMP_Text resultTextB;
-    public TMP_Text QuestionText;
-    public TMP_Text NumQuestionsFinishedText;
+    public Text resultTextA;
+    public Text resultTextB;
+    public Text QuestionText;
+    public Text NumQuestionsFinishedText;
 
     private int score = 0;
-    public TMP_Text ScoreText;
+    public Text ScoreText;
 
     public Button AnswerAButton;
     public Button AnswerBButton;
@@ -55,7 +55,7 @@ public class EquationSpawner : MonoBehaviour
 
     public void TaskOnClick()
     {
-        string clicked = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<TMP_Text>().text;
+        string clicked = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
         EventSystem.current.SetSelectedGameObject(null);
         if (clicked.Equals(""))
         {
